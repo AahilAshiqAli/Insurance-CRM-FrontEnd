@@ -13,6 +13,7 @@ const Dashboard = () => {
 
   return (
     <div>
+      <Navbar></Navbar>
       <div className="dashboard-container">
         <h1 className="title py-5">What would you like to use CRM for?</h1>
         <div className="grid-container">

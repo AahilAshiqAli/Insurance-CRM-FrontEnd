@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./customerInfo.css";
+import Navbar from "../components/navbar";
 
 const PolicyProcess = () => {
   const [formData, setFormData] = useState({
@@ -33,7 +34,10 @@ const PolicyProcess = () => {
   };
 
   return (
+    <div>
+      <Navbar></Navbar>
     <div className="policy-process-layout">
+      <Navbar></Navbar>
       {/* Sidebar */}
       <div className="sidebar">
         <ul className="sidebar-menu">
@@ -233,6 +237,8 @@ const PolicyProcess = () => {
         </form>
       </div>
     </div>
+    </div>
+    
   );
 };
 
