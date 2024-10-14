@@ -1,31 +1,102 @@
-import React from 'react';
-import './insuranceCategory.css'
+import React, { useState } from "react";
+import Navbar from "../components/navbar"; // Ensure Navbar is correctly imported
+import "./InsuranceCategory.css";
+import { useNavigate } from "react-router-dom";
 
-const InsuranceScreen = () => {
+const InsuranceCategory = () => {
+  const [selectedLicenseType, setSelectedLicenseType] = useState("");
+  const [selectedDeviceType, setSelectedDeviceType] = useState("");
+
+  const handleLicenseTypeClick = (type) => {
+    setSelectedLicenseType(type);
+  };
+
+  const handleDeviceTypeClick = (type) => {
+    setSelectedDeviceType(type);
+  };
+
+  const navigate = useNavigate();
+
+  const handleRedirect = () => {
+    navigate("customer-info"); // replace '' with your desired path, e.g., '/dashboard'
+  };
+
   return (
-    <div className="insurance-screen">
-      <h1 className="main-heading">Insurance Category</h1>
-      
-      <div className="dropdown-container">
-        <div className="dropdown">
-          <label htmlFor="licenseType" className="dropdown-label">License Type</label>
-          <select id="licenseType" className="dropdown-select">
-            <option value="Islamic">Islamic</option>
-            <option value="Conventional">Conventional</option>
-            <option value="Outh">Outh</option>
-          </select>
+    <div>
+      <Navbar /> {/* Add the Navbar here to appear on top of the page */}
+      <div className="insurance-category-container">
+        <h1 className="main-heading p-semibold">Insurance Category</h1>
+
+        {/* License Type Section */}
+        <div className="section">
+          <h2 className="sub-heading">License Type</h2>
+          <div className="button-group">
+            <button
+              className={`button ${
+                selectedLicenseType === "Islamic" ? "active" : ""
+              } `}
+              onClick={() => handleLicenseTypeClick("Islamic")}
+            >
+              🕌 Islamic
+            </button>
+            <button
+              className={`button ${
+                selectedLicenseType === "Conventional" ? "active" : ""
+              }`}
+              onClick={() => handleLicenseTypeClick("Conventional")}
+            >
+              🏦 Conventional
+            </button>
+            <button
+              className={`button ${
+                selectedLicenseType === "Both" ? "active" : ""
+              }`}
+              onClick={() => handleLicenseTypeClick("Both")}
+            >
+              🔄 Both
+            </button>
+          </div>
         </div>
 
-        <div className="dropdown">
-          <label htmlFor="productCategory" className="dropdown-label">Product Category</label>
-          <select id="productCategory" className="dropdown-select">
-            <option value="Mobile">Mobile</option>
-            <option value="Laptop">Laptop</option>
-          </select>
+        {/* Device Type Section */}
+        <div className="section">
+          <h2 className="sub-heading">Device Type</h2>
+          <div className="button-group">
+            <button
+              className={`button ${
+                selectedDeviceType === "Mobile" ? "active" : ""
+              }`}
+              onClick={() => handleDeviceTypeClick("Mobile")}
+            >
+              📱 Mobile
+            </button>
+            <button
+              className={`button ${
+                selectedDeviceType === "Laptop" ? "active" : ""
+              }`}
+              onClick={() => handleDeviceTypeClick("Laptop")}
+            >
+              💻 Laptop
+            </button>
+            <button
+              className={`button ${
+                selectedDeviceType === "Both" ? "active" : ""
+              }`}
+              onClick={() => handleDeviceTypeClick("Both")}
+            >
+              🖥️ Both
+            </button>
+          </div>
         </div>
+        <button
+          type="submit"
+          className="absolute bottom-10 right-10 py-4 px-8 bg-primary text-white font-psemibold rounded-md hover:bg-secondary transition duration-300"
+          onClick={handleRedirect}
+        >
+          Next
+        </button>
       </div>
     </div>
   );
 };
-
-export default InsuranceScreen;
+export default InsuranceCategory;
