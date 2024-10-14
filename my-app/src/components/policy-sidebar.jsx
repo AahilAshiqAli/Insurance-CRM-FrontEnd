@@ -21,17 +21,17 @@ const PolicySidebar = () => {
     "Insurance Category": "/policy-creation/",
     CX: "/policy-creation/customer-info",
     "Risk Questionnaire": "/policy-creation/risk-questionaire",
-    Addons: "/addons",
-    "Device Information": "/device-information",
+    Addons: "/policy-creation/risk-questionaire",
+    "Device Information": "/policy-creation/device-info",
     Perils: "/perils",
     "Generate Quote": "/generate-quote",
     Discount: "/discount",
     PreInspection: "/pre-inspection",
     KYC: "/kyc",
     "Approval Matrix": "/approval-matrix",
-    TCN: "/temporary-cover-note",
-    Finance: "/finance",
-    "Issue Policy": "/issue-policy",
+    TCN: "/policy-creation/tcn",
+    Finance: "/policy-creation/tcn",
+    "Issue Policy": "/policy-creation/issue-policy",
   };
 
   const handleClick = (item) => {
@@ -45,7 +45,7 @@ const PolicySidebar = () => {
   return (
     <div className="bg-gray-50 w-64 p-4 mt-14 rounded-lg shadow-lg h-screen overflow-y-auto">
       <div className="space-y-2">
-        <h3 className="text-gray-500 text-sm">Insurance</h3>
+        <h3 className="text-gray-500 text-sm">Policy Creation</h3>
         {[
           { name: "Insurance Category", icon: <FiShield /> },
           { name: "CX", icon: <FiUser /> },

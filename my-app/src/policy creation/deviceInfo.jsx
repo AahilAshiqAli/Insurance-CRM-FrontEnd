@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import Sidebar from "../components/policy-sidebar";
+import { useNavigate } from "react-router-dom";
 
 const DeviceInfo = () => {
   const [formData, setFormData] = useState({
@@ -14,6 +15,8 @@ const DeviceInfo = () => {
     warrantyStatus: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -24,6 +27,7 @@ const DeviceInfo = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
+    navigate("/policy-creation/perils");
   };
 
   const styles = {
@@ -53,7 +57,7 @@ const DeviceInfo = () => {
 
       <div className="flex-1 p-10 relative">
         <form onSubmit={handleSubmit}>
-          <h2 className="text-primary font-psemibold text-2xl mt-16 mb-8">
+          <h2 className="text-primary text-start font-psemibold text-2xl mt-16 mb-8">
             Device Insurance Form
           </h2>
 
@@ -210,12 +214,15 @@ const DeviceInfo = () => {
             </div>
           </section>
         </form>
-        <button
-          type="submit"
-          className="absolute bottom-5 right-5 py-2 px-4 bg-primary text-white font-psemibold rounded-md hover:bg-secondary transition duration-300"
-        >
-          Next
-        </button>
+        <div className="flex justify-end mt-16">
+          <button
+            type="submit"
+            className="py-4 px-10 bg-primary text-white font-psemibold rounded-md hover:bg-secondary transition duration-300"
+            onClick={handleSubmit}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

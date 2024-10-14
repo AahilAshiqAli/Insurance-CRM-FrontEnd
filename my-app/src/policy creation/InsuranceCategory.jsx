@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/navbar"; // Ensure Navbar is correctly imported
 import "./InsuranceCategory.css";
 import { useNavigate } from "react-router-dom";
+import SideBar from "../components/policy-sidebar";
 
 const InsuranceCategory = () => {
   const [selectedLicenseType, setSelectedLicenseType] = useState("");
@@ -22,8 +23,9 @@ const InsuranceCategory = () => {
   };
 
   return (
-    <div>
+    <div className="layout">
       <Navbar /> {/* Add the Navbar here to appear on top of the page */}
+      <SideBar />
       <div className="insurance-category-container">
         <h1 className="main-heading p-semibold">Insurance Category</h1>
 

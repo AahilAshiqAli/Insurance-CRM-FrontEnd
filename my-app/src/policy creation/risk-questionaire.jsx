@@ -1,12 +1,22 @@
 import React, { useState } from "react";
 import Navbar from "../components/navbar"; // Ensure Navbar is correctly imported
 import "./risk-questionaire.css";
+import SideBar from "../components/policy-sidebar";
+import { useNavigate } from "react-router-dom";
 
 const RiskQuestionnaire = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/policy-creation/device-info");
+  };
+
   return (
-    <div>
+    <div className="body">
       <Navbar /> {/* Navbar on top */}
-      <div className="risk-questionnaire-container">
+      <SideBar />
+      <div className="risk-questionnaire-container mt-12">
         <h2 className="heading font-psemibold text-primary">
           Risk Questionnaire
         </h2>
@@ -86,6 +96,15 @@ const RiskQuestionnaire = () => {
                 </button>
               </div>
             ))}
+          </div>
+          <div className="flex justify-end mt-16">
+            <button
+              type="submit"
+              className="py-4 px-10 bg-primary text-white font-psemibold rounded-md hover:bg-secondary transition duration-300"
+              onClick={handleSubmit}
+            >
+              Next
+            </button>
           </div>
         </div>
       </div>

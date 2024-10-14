@@ -16,23 +16,25 @@ const Dashboard = () => {
   ];
 
   return (
-    <div>
-      <Navbar></Navbar>
-      <div className="dashboard-container">
-        <h1 className="title py-5">What would you like to use CRM for?</h1>
-        <div className="grid-container">
+    <div className="py-10">
+      <Navbar />
+      <section className="dashboard-container w-full">
+        <h1 className="pt-10 text-primary font-psemibold text-3xl">
+          What would you like to use CRM for?
+        </h1>
+        <div className="grid-container mt-20">
           {options.map((option, index) => (
             <Link to={option.path} className="grid-item" key={index}>
               <span className="icon">{option.icon}</span>
-              <h3>{option.title}</h3>
-              <p>
+              <h3 className="text-primary font-psemibold">{option.title}</h3>
+              <p className="font-pregular">
                 Lorem Ipsum is simply dummy text of the printing and typesetting
                 industry.
               </p>
             </Link>
           ))}
         </div>
-      </div>
+      </section>
     </div>
   );
 };
