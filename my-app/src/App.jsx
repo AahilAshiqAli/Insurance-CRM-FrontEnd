@@ -10,7 +10,10 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<ChooseModule />} />
-        <Route path="/policy-process" element={<CustomerInfo />} />
+        <Route
+          path="policy-creation/customer-info"
+          element={<CustomerInfo />}
+        />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>

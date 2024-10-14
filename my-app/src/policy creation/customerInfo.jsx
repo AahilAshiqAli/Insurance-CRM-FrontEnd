@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./customerInfo.css";
 import Navbar from "../components/navbar";
 
-const PolicyProcess = () => {
+const CustomerInfo = () => {
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -242,4 +242,4 @@ const PolicyProcess = () => {
   );
 };
 
-export default PolicyProcess;
+export default CustomerInfo;

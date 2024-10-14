@@ -5,7 +5,11 @@ import Navbar from "../components/navbar"; // Import Link from react-router-dom
 const Dashboard = () => {
   const options = [
     { title: "Product Setup", icon: "📦", path: "/" },
-    { title: "Policy Process", icon: "🛡️", path: "/policy-process" },
+    {
+      title: "Policy Process",
+      icon: "🛡️",
+      path: "/policy-creation/customer-info",
+    },
     { title: "Claims Module", icon: "📄", path: "/" },
     { title: "Endorsement", icon: "🔖", path: "/" },
     { title: "Renewal", icon: "🔁", path: "/" },
