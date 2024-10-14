@@ -1,0 +1,66 @@
+/* Login Screen Container */
+.login-screen-container {
+  flex-direction: column;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .login-screen-container {
+    flex-direction: row;
+    height: 100vh;
+  }
+}
+
+/* Login Form Container */
+.login-form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+}
+
+@media (min-width: 768px) {
+  .login-form-container {
+    width: 50%; /* Full width on mobile, half on larger screens */
+  }
+}
+
+/* Promo Panel */
+.promo-panel {
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .promo-panel {
+    display: flex;
+    width: 50%; /* Hidden on mobile, takes half the screen on larger screens */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+}
+
+.promo-image img {
+  max-width: 200px;
+}
+
+/* Input Field */
+.input-field {
+  transition: border-color 0.2s;
+}
+
+.password-toggle {
+  color: var(--gray-600);
+}
+
+.password-toggle:hover {
+  color: var(--secondary-color);
+}
+
+/* Button Styles */
+.login-button {
+  transition: background-color 0.3s;
+}

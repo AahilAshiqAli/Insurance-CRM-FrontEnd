@@ -1,0 +1,116 @@
+.dashboard-container {
+  width: 90%;
+  max-width: 800px;
+  margin: auto;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff;
+  border: 5px solid #333;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  color: black;
+  font-family: "Poppins-Bold";
+}
+
+.dashboard-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.filter-item {
+  padding: 0.3rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 0.85rem;
+}
+
+.metrics,
+.charts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.metric-card,
+.chart-card {
+  flex: 1 1 48%;
+  padding: 0.8rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  min-width: 160px;
+  max-width: 48%;
+  border: 1px solid #ccc;
+}
+
+.metric-card h2,
+.chart-card h2 {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 0.5rem;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.metric-change {
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+
+.metric-change.positive {
+  color: green;
+}
+
+.metric-change.negative {
+  color: red;
+}
+
+@media (max-width: 768px) {
+  .dashboard-title {
+    font-size: 1.25rem;
+  }
+
+  .metrics,
+  .charts {
+    flex-direction: column;
+  }
+
+  .metric-card,
+  .chart-card {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+
+  .metric-value {
+    font-size: 1.25rem;
+  }
+
+  .metric-card h2,
+  .chart-card h2 {
+    font-size: 0.9rem;
+  }
+
+  .metric-change {
+    font-size: 0.7rem;
+  }
+}

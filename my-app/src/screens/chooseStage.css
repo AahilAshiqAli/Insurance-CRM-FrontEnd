@@ -1,0 +1,72 @@
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: wheat; /* Soft grey background */
+  padding-top: 60px; /* Ensure the navbar does not overlap */
+  color: white;
+}
+
+.dashboard-container {
+  padding: 20px;
+  text-align: center;
+  background-color: #f37a2b;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.grid-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* Evenly distribute space between items */
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens if necessary */
+  gap: 20px;
+}
+
+.grid-item {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  flex: 1; /* Allow the items to grow equally */
+  max-width: calc(
+    20% - 20px
+  ); /* Ensure 5 items fit in a single row accounting for the gap */
+  min-width: 150px; /* A reasonable min-width for very small screens */
+}
+
+.grid-item:hover {
+  transform: translateY(-5px);
+}
+
+.icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 18px;
+  color: #2c3e50;
+}
+
+p {
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+/* Media query for very small screens */
+@media (max-width: 600px) {
+  .horizontal-grid-container {
+    flex-wrap: wrap; /* Stack items if screen is too small */
+  }
+
+  .grid-item {
+    max-width: 100%; /* Full width on small screens */
+  }
+}

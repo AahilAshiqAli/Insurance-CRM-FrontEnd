@@ -1,0 +1,42 @@
+.navbar {
+  width: 100%; /* Full-width navbar */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Make sure the navbar stays on top */
+}
+
+.navbar-logo h2 {
+  font-size: 22px;
+  color: #fff; /* White text color for contrast */
+  margin: 0;
+}
+
+.navbar-search input {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 20px;
+  width: 250px;
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-icons .icon {
+  font-size: 20px;
+  margin-right: 15px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.navbar-profile .profile-role {
+  font-size: 14px;
+  color: #fff;
+}
