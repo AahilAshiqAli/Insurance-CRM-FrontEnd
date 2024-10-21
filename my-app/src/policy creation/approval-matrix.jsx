@@ -1,17 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Perils = () => {
+export const ApprovalMatrix = () => {
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/policy-creation/pre-inspection");
+    navigate("/policy-creation/tcn");
   };
 
   return (
     <div>
-      perils
+      approval matrix
       <div className="flex justify-end mt-16">
         <button
           type="submit"

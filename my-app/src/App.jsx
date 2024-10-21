@@ -9,6 +9,9 @@ import RiskQuestionnaire from "./policy creation/risk-questionaire";
 import { Perils } from "./policy creation/perils";
 import TemporaryCNWithQuote from "./policy creation/TCN";
 import IssuePolicy from "./policy creation/issuePolicy";
+import KYC from "./policy creation/KYC";
+import Preinspection from "./policy creation/pre-inspection";
+import { ApprovalMatrix } from "./policy creation/approval-matrix";
 
 function App() {
   return (
@@ -30,6 +33,15 @@ function App() {
         <Route path="policy-creation/perils" element={<Perils />} />
         <Route path="policy-creation/tcn" element={<TemporaryCNWithQuote />} />
         <Route path="policy-creation/issue-policy" element={<IssuePolicy />} />
+        <Route
+          path="policy-creation/approval-matrix"
+          element={<ApprovalMatrix />}
+        />
+        <Route path="policy-creation/kyc" element={<KYC />} />
+        <Route
+          path="policy-creation/pre-inspection"
+          element={<Preinspection />}
+        />
       </Routes>
     </Router>
   );

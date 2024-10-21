@@ -2,7 +2,7 @@ import React from "react";
 import Navbar from "../components/navbar";
 import PolicySidebar from "../components/policy-sidebar";
 
-const TemporaryCNWithQuote = () => {
+const IssuePolicy = () => {
   return (
     <div className="p-5 flex">
       <Navbar />
@@ -91,4 +91,4 @@ const TemporaryCNWithQuote = () => {
   );
 };
 
-export default TemporaryCNWithQuote;
+export default IssuePolicy;
