@@ -98,7 +98,7 @@ const Kyc = () => {
 
           {/* Second Section - Document Upload */}
           <h2 className="font-psemibold text-primary text-3xl text-left m-5">
-            Document Upload
+            Verify Documents
           </h2>
           <div className="file-upload-section">
             <div className="file-grid font-pregular">

@@ -12,6 +12,7 @@ import IssuePolicy from "./policy creation/issuePolicy";
 import KYC from "./policy creation/KYC";
 import Preinspection from "./policy creation/pre-inspection";
 import { ApprovalMatrix } from "./policy creation/approval-matrix";
+import DocumentsUpload from "./policy creation/documents-upload";
 
 function App() {
   return (
@@ -41,6 +42,10 @@ function App() {
         <Route
           path="policy-creation/pre-inspection"
           element={<Preinspection />}
+        />
+        <Route
+          path="policy-creation/documents-upload"
+          element={<DocumentsUpload />}
         />
       </Routes>
     </Router>

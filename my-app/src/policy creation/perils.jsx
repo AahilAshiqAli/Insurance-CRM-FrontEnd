@@ -10,7 +10,7 @@ export const Perils = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("policy-creation/pre-inspection");
+    navigate("/policy-creation/pre-inspection");
   };
 
   const [showTable, setShowTable] = useState(false); // State to show the table
