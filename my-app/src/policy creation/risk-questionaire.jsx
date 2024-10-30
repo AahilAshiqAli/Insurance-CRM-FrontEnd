@@ -63,12 +63,16 @@ const RiskQuestionnaire = () => {
                     placeholder="Add on details"
                   />
                 </div>
-                <button className="addon-btn view-btn font-pregular">
-                  View
-                </button>
-                <button className="addon-btn edit-btn font-pregular">
-                  Edit
-                </button>
+                <div>
+                  <button className="addon-btn edit-btn font-pregular">
+                    View
+                  </button>
+                </div>
+                <div>
+                  <button className="addon-btn edit-btn font-pregular">
+                    Edit
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -88,12 +92,16 @@ const RiskQuestionnaire = () => {
                     placeholder="Exclusion details"
                   />
                 </div>
-                <button className="exclusion-btn view-btn font-pregular">
-                  View
-                </button>
-                <button className="exclusion-btn edit-btn font-pregular">
-                  Edit
-                </button>
+                <div>
+                  <button className="addon-btn edit-btn font-pregular">
+                    View
+                  </button>
+                </div>
+                <div>
+                  <button className="addon-btn edit-btn font-pregular">
+                    Edit
+                  </button>
+                </div>
               </div>
             ))}
           </div>

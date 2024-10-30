@@ -12,12 +12,12 @@ const PreInspection = () => {
     navigate("/policy-creation/kyc");
   };
   return (
-    <div>
+    <div className="body">
       <Navbar /> {/* Navbar on top */}
       <PolicySidebar /> {/* Sidebar on the left */}
       <div className="pre-inspection-container">
         <div className="content-container">
-          <h2 className="heading font-psemibold text-primary">
+          <h2 className="font-psemibold text-primary text-3xl text-left m-5">
             Pre Inspection
           </h2>
 
@@ -71,10 +71,21 @@ const PreInspection = () => {
                     placeholder={`Enter ${field.toLowerCase()}`}
                   />
                 </div>
-                <button className="btn view-btn font-pregular">View</button>
+                <div className="button-group">
+                  <button className="btn view-btn font-pregular">View</button>
+                </div>
               </div>
             ))}
           </div>
+        </div>
+        <div className="flex justify-end mt-16">
+          <button
+            type="submit"
+            className="py-4 px-10 bg-primary text-white font-psemibold rounded-md hover:bg-secondary transition duration-300"
+            onClick={handleSubmit}
+          >
+            Next
+          </button>
         </div>
       </div>
     </div>

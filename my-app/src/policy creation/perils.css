@@ -1,0 +1,153 @@
+/* Container for the entire Risk Questionnaire page */
+.body {
+  display: flex;
+  align-items: flex-start;
+  padding: 0;
+  margin: 0;
+  background-color: #f5f5f5;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* Container for the sidebar and main content */
+.package-container {
+  margin-top: 60px;
+  padding: 20px;
+  gap: 20px;
+}
+
+/* Sidebar styling */
+.PolicySidebar {
+  flex: 0 0 250px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: fit-content;
+}
+
+/* Main content styling */
+.content-container {
+  flex: 1;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Heading */
+.heading {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* Package Grid - Two columns layout */
+.package-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns */
+  grid-gap: 30px;
+  justify-content: center;
+}
+
+/* Individual package card */
+.package-card {
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.package-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Package icons */
+.package-icon {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+
+.golden-package-icon i {
+  color: #ffd700; /* Gold Color */
+}
+
+.silver-package-icon i {
+  color: #c0c0c0; /* Silver Color */
+}
+
+/* Package title */
+.package-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #1f7ba4;
+  margin-bottom: 10px;
+}
+
+/* Package description */
+.package-description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.6;
+}
+
+/* Quote Section */
+.quote-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f0f8ff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  text-align: center;
+}
+
+.quote-table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background-color: #fff;
+}
+
+.quote-table td {
+  padding: 12px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  color: #333;
+}
+
+.generate-quote-btn {
+  background-color: #1f7ba4;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border: none;
+}
+
+.generate-quote-btn:hover {
+  background-color: #145373;
+}
+
+.discount-dropdown {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  width: 27%;
+  margin-right: 10px;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .package-grid {
+    grid-template-columns: 1fr; /* Switch to single column layout on small screens */
+  }
+}
