@@ -17,7 +17,7 @@ const RiskQuestionnaire = () => {
       <Navbar /> {/* Navbar on top */}
       <SideBar />
       <div className="risk-questionnaire-container mt-12">
-        <h2 className="heading font-psemibold text-primary">
+        <h2 className="font-psemibold text-primary text-3xl text-left m-5">
           Risk Questionnaire
         </h2>
 
@@ -51,7 +51,9 @@ const RiskQuestionnaire = () => {
 
         {/* Add On Section */}
         <div className="add-on-section my-10">
-          <h2 className="heading font-psemibold text-primary">Add Ons</h2>
+          <h2 className="font-psemibold text-primary text-3xl text-left m-5">
+            Add Ons
+          </h2>
           <div className="add-on-grid font-pregular">
             {[1, 2, 3].map((num) => (
               <div className="add-on-row" key={num}>
@@ -80,7 +82,9 @@ const RiskQuestionnaire = () => {
 
         {/* Exclusions Section */}
         <div className="exclusions-section">
-          <h2 className="heading font-psemibold text-primary">Exclusions</h2>
+          <h2 className="font-psemibold text-primary text-3xl text-left m-5">
+            Exclusions
+          </h2>
           <div className="exclusions-grid font-pregular">
             {[1, 2, 3].map((num) => (
               <div className="exclusion-row" key={num}>
