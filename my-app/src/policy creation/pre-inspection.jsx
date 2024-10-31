@@ -9,7 +9,7 @@ const PreInspection = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/policy-creation/kyc");
+    navigate("/policy-creation/documents-upload");
   };
   return (
     <div className="body">
