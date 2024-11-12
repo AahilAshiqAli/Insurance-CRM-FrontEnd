@@ -13,6 +13,12 @@ import KYC from "./policy creation/KYC";
 import Preinspection from "./policy creation/pre-inspection";
 import { ApprovalMatrix } from "./policy creation/approval-matrix";
 import DocumentsUpload from "./policy creation/documents-upload";
+import CustomerProfileRules from "./product-setup/CustomerProfileRules.jsx";
+import PerilCreation from "./product-setup/PerilCreation.jsx";
+import ProductName from "./product-setup/Product_Name.jsx";
+import RenewalRules from "./product-setup/RenewalRules.jsx";
+import PremiumComputation from "./product-setup/PremiumComputation.jsx";
+import InsurableInterest from "./product-setup/InsurableInterest.jsx";
 
 function App() {
   return (
@@ -46,6 +52,27 @@ function App() {
         <Route
           path="policy-creation/documents-upload"
           element={<DocumentsUpload />}
+        />
+        <Route path="product-setup/" element={<ProductName />} />
+        <Route
+          path="product-setup/peril-creation"
+          element={<PerilCreation />}
+        />
+        <Route
+          path="product-setup/customer-profile-rules"
+          element={<CustomerProfileRules />}
+        />
+        <Route
+          path="product-setup/rules-for-renewal"
+          element={<RenewalRules />}
+        />
+        <Route
+          path="product-setup/insurable-interest"
+          element={<InsurableInterest />}
+        />
+        <Route
+          path="product-setup/premium-computation"
+          element={<PremiumComputation />}
         />
       </Routes>
     </Router>
