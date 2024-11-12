@@ -36,19 +36,20 @@ const RenewalRules = () => {
     e.preventDefault();
     navigate("/product-setup/");
   };
+
   return (
-    <div className="body">
+    <div className="renewal-body">
       <Navbar />
       <PolicySidebar />
-      <div className="rulesrenewal-container">
-        <div className="form-container font-pregular">
+      <div className="renewal-rules-container">
+        <div className="renewal-form-container font-pregular">
           <h2 className="font-psemibold text-primary text-3xl text-left m-5">
             Rules for Renewal
           </h2>
 
-          <div className="form-group">
+          <div className="renewal-form-group">
             <label>Generate Renewal</label>
-            <div className="radio-group">
+            <div className="renewal-radio-group">
               <label>
                 <input
                   type="radio"
@@ -72,7 +73,7 @@ const RenewalRules = () => {
             </div>
           </div>
 
-          <div className="form-group">
+          <div className="renewal-form-group">
             <label>Renewal Generation Date (Time Period)</label>
             <div className="flex gap-4">
               <select
@@ -92,7 +93,7 @@ const RenewalRules = () => {
             </div>
           </div>
 
-          <div className="form-group">
+          <div className="renewal-form-group">
             <label>No Claim Discount</label>
             <select
               name="noClaimDiscount"
@@ -106,7 +107,7 @@ const RenewalRules = () => {
             </select>
           </div>
 
-          <div className="form-group">
+          <div className="renewal-form-group">
             <label>Sum Insured Reduction</label>
             <select
               name="insuredReduction"
