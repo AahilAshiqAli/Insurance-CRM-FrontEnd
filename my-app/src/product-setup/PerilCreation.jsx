@@ -39,7 +39,7 @@ const PerilCreation = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/product-setup/customer-profile-rules");
+    navigate("/product-setup/insurable-interest");
   };
   const [showModal, setShowModal] = useState(false);
   const [perilsData, setPerilsData] = useState(initialPerilsData);
