@@ -12,7 +12,7 @@ const Dashboard = () => {
     },
     { title: "Claims Module", icon: "📄", path: "/" },
     { title: "Endorsement", icon: "🔖", path: "/" },
-    { title: "Renewal", icon: "🔁", path: "/" },
+    { title: "Renewal", icon: "🔁", path: "/Renewal/" },
   ];
 
   return (

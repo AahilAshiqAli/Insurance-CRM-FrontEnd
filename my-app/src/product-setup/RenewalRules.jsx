@@ -34,7 +34,7 @@ const RenewalRules = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/product-setup/");
+    navigate("/product-setup/premium-computation");
   };
 
   return (

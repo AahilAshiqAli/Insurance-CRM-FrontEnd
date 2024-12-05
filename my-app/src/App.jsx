@@ -19,6 +19,8 @@ import ProductName from "./product-setup/Product_Name.jsx";
 import RenewalRules from "./product-setup/RenewalRules.jsx";
 import PremiumComputation from "./product-setup/PremiumComputation.jsx";
 import InsurableInterest from "./product-setup/InsurableInterest.jsx";
+import RenewalScreen from "./Renewal/Renewal.jsx";
+
 
 function App() {
   return (
@@ -74,6 +76,7 @@ function App() {
           path="product-setup/premium-computation"
           element={<PremiumComputation />}
         />
+         <Route path="Renewal/" element={<RenewalScreen />} />
       </Routes>
     </Router>
   );

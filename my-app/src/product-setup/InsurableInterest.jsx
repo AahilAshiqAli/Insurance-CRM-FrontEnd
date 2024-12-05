@@ -3,6 +3,7 @@ import "./InsurableInterest.css";
 import Navbar from "../components/navbar";
 import PolicySidebar from "../components/policy-sidebar";
 import { useNavigate } from "react-router-dom";
+
 const InsurableInterest = () => {
   const navigate = useNavigate();
 
