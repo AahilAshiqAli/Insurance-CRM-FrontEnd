@@ -3,10 +3,7 @@ import "./InsurableInterest.css";
 import Navbar from "../components/navbar";
 import ProductSidebar from "../components/product-sidebar";
 import { useNavigate } from "react-router-dom";
-<<<<<<< Updated upstream
-=======
 import { useProductSetup } from "./ProductSetupProvider";
->>>>>>> Stashed changes
 
 const InsurableInterest = () => {
   const navigate = useNavigate();

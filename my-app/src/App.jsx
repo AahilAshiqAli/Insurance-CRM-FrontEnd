@@ -19,10 +19,34 @@ import ProductName from "./product-setup/Product_Name.jsx";
 import RenewalRules from "./product-setup/RenewalRules.jsx";
 import PremiumComputation from "./product-setup/PremiumComputation.jsx";
 import InsurableInterest from "./product-setup/InsurableInterest.jsx";
+import ProductSetupProvider from "./product-setup/ProductSetupProvider.js";
+import EntryScreen from "./product-setup/EntryScreen.jsx";
 import RenewalScreen from "./Renewal/Renewal.jsx";
 
+const ProductSetupWrapper = () => {
+  console.log("kjkh");
+  return (
+    <ProductSetupProvider>
+      {" "}
+      {/* You can wrap the context here if needed */}
+      <Routes>
+        <Route path="/" element={<ProductName />} />
+        <Route path="/choose" element={<EntryScreen />} />
+        <Route path="/peril-creation" element={<PerilCreation />} />
+        <Route
+          path="/customer-profile-rules"
+          element={<CustomerProfileRules />}
+        />
+        <Route path="/rules-for-renewal" element={<RenewalRules />} />
+        <Route path="/insurable-interest" element={<InsurableInterest />} />
+        <Route path="/premium-computation" element={<PremiumComputation />} />
+      </Routes>
+    </ProductSetupProvider>
+  );
+};
 
 function App() {
+  console.log("jbjhbkj");
   return (
     <Router>
       <Routes>
@@ -55,28 +79,8 @@ function App() {
           path="policy-creation/documents-upload"
           element={<DocumentsUpload />}
         />
-        <Route path="product-setup/" element={<ProductName />} />
-        <Route
-          path="product-setup/peril-creation"
-          element={<PerilCreation />}
-        />
-        <Route
-          path="product-setup/customer-profile-rules"
-          element={<CustomerProfileRules />}
-        />
-        <Route
-          path="product-setup/rules-for-renewal"
-          element={<RenewalRules />}
-        />
-        <Route
-          path="product-setup/insurable-interest"
-          element={<InsurableInterest />}
-        />
-        <Route
-          path="product-setup/premium-computation"
-          element={<PremiumComputation />}
-        />
-         <Route path="Renewal/" element={<RenewalScreen />} />
+        <Route path="product-setup/*" element={<ProductSetupWrapper />} />
+        <Route path="Renewal/" element={<RenewalScreen />} />
       </Routes>
     </Router>
   );
