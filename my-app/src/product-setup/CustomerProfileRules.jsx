@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/navbar";
-import PolicySidebar from "../components/policy-sidebar";
+import ProductSidebar from "../components/product-sidebar";
 import "./CustomerProfileRules.css";
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +15,7 @@ const CustomerProfileRules = () => {
   return (
     <div className="body">
       <Navbar />
-      <PolicySidebar /> {/* Sidebar inside the body */}
+      <ProductSidebar /> {/* Sidebar inside the body */}
       <div className="content-container">
         <h2 className="font-psemibold text-primary text-3xl text-left m-5">
           Customer Profile Rules

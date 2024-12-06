@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./RenewalRules.css";
 import Navbar from "../components/navbar";
-import PolicySidebar from "../components/policy-sidebar";
+import ProductSidebar from "../components/product-sidebar";
 import { useNavigate } from "react-router-dom";
 
 const RenewalRules = () => {
@@ -40,7 +40,7 @@ const RenewalRules = () => {
   return (
     <div className="renewal-body">
       <Navbar />
-      <PolicySidebar />
+      <ProductSidebar />
       <div className="renewal-rules-container">
         <div className="renewal-form-container font-pregular">
           <h2 className="font-psemibold text-primary text-3xl text-left m-5">

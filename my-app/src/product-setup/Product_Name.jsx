@@ -1,20 +1,59 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/navbar";
-import PolicySidebar from "../components/policy-sidebar";
+import ProductSidebar from "../components/product-sidebar";
 import "./Product_Name.css";
 import { useNavigate } from "react-router-dom";
+import { useProductSetup } from "./ProductSetupProvider";
 
 const ProductName = () => {
   const navigate = useNavigate();
-
+  const { productId, productData } = useProductSetup();
+  const [product, setProduct] = useState({
+    product_name: "",
+    package_name: "",
+    product_abbreviation: "",
+    policy_type: "",
+    policy_period: "",
+    temporary_cn_max_time: "",
+    customer_type: "",
+  });
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!productId) {
+      console.log("Insert this into the table");
+    }
     navigate("/product-setup/peril-creation");
   };
+
+  useEffect(() => {
+    if (productData) {
+      setProduct({
+        product_name: productData.product_name || "",
+        package_name: productData.package_name || "",
+        product_abbreviation: productData.product_abbreviation || "",
+        policy_type: productData.policy_type || "",
+        policy_period: productData.policy_period || "",
+        temporary_cn_min_time: productData.temporary_cn_min_time || "",
+        temporary_cn_max_time: productData.temporary_cn_max_time || "",
+        customer_type: productData.customer_type || "",
+      });
+    }
+  }, [productData]);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setProduct((prevProduct) => ({
+      ...prevProduct,
+      [name]: value,
+    }));
+  };
+  // this syntax is used to preserve rest of all values except the one thats changed.
+  // In the handleInputChange function, you're using event delegation. When an input field changes, it triggers the onChange event handler, passing the event object. The event object contains details about the event, such as which element triggered it and the value of the input field.
+
   return (
     <div className="body">
       <Navbar />
-      <PolicySidebar /> {/* Sidebar inside the body */}
+      <ProductSidebar /> {/* Sidebar inside the body */}
       <div className="content-container">
         <h2 className="font-psemibold text-primary text-3xl text-left m-5">
           Product Information
@@ -25,11 +64,21 @@ const ProductName = () => {
           <div className="form-row font-pregular">
             <div className="input-group font-pregular">
               <label>Product Name</label>
-              <input type="text" placeholder="Enter product name" />
+              <input
+                type="text"
+                name="product_name"
+                value={product.product_name}
+                onChange={handleInputChange}
+                placeholder="Enter product name"
+              />
             </div>
             <div className="input-group font-pregular">
               <label>Package</label>
-              <select>
+              <select
+                name="package"
+                // value={product.package_name ? "yes" : "no"} // Set to 'yes' if package_name is not empty
+                onChange={handleInputChange}
+              >
                 <option value="" disabled selected>
                   Select Package
                 </option>
@@ -39,39 +88,54 @@ const ProductName = () => {
             </div>
             <div className="input-group font-pregular">
               <label>Package Name</label>
-              <select>
-                <option value="" disabled selected>
-                  Select Package Name
-                </option>
-                <option value="gold">Gold</option>
-                <option value="silver">Silver</option>
-              </select>
+              <input
+                type="text"
+                name="package_name"
+                value={product.package_name}
+                onChange={handleInputChange}
+                placeholder="Package Name"
+                disabled={product.package !== "yes"}
+              />
             </div>
           </div>
 
           <div className="form-row font-pregular">
             <div className="input-group font-pregular">
               <label>Product Abbreviation/Product Prefix</label>
-              <input type="text" placeholder="Enter product Abbreviation" />
+              <input
+                type="text"
+                name="product_abbreviation"
+                value={product.product_abbreviation}
+                onChange={handleInputChange}
+                placeholder="Enter product Abbreviation"
+              />
             </div>
             <div className="input-group font-pregular">
               <label>Policy Type</label>
-              <select>
+              <select
+                name="policy_type"
+                value={product.policy_type} // Set default value to product.policy_type
+                onChange={handleInputChange}
+              >
                 <option value="" disabled selected>
                   Select Policy Type
                 </option>
-                <option value="open">Open Policy</option>
-                <option value="fixed">Fixed Policy</option>
+                <option value="Open Policy">Open Policy</option>
+                <option value="Fixed Policy">Fixed Policy</option>
               </select>
             </div>
             <div className="input-group font-pregular">
               <label>Policy Period</label>
-              <select>
+              <select
+                name="policy_period"
+                value={product.policy_period} // Set default value to product.policy_type
+                onChange={handleInputChange}
+              >
                 <option value="" disabled selected>
                   Select Policy Period
                 </option>
-                <option value="1-year">1 Year</option>
-                <option value="6-months">6 Months</option>
+                <option value="1 year">1 Year</option>
+                <option value="6 months">6 Months</option>
               </select>
             </div>
           </div>
@@ -79,32 +143,36 @@ const ProductName = () => {
           <div className="form-row font-pregular">
             <div className="input-group font-pregular">
               <label>Temporary CN Minimum Time</label>
-              <select>
-                <option value="" disabled selected>
-                  Select Minimum Time
-                </option>
-                <option value="15-days">15 Days</option>
-                <option value="30-days">30 Days</option>
-              </select>
+              <input
+                type="number"
+                name="temporary_cn_min_time"
+                value={product.temporary_cn_min_time}
+                onChange={handleInputChange}
+                placeholder="Temporary CN Min Time"
+              />
             </div>
             <div className="input-group font-pregular">
               <label>Temporary CN Maximum Time</label>
-              <select>
-                <option value="" disabled selected>
-                  Select Maximum Time
-                </option>
-                <option value="60-days">60 Days</option>
-                <option value="90-days">90 Days</option>
-              </select>
+              <input
+                type="number"
+                name="temporary_cn_max_time"
+                value={product.temporary_cn_max_time}
+                onChange={handleInputChange}
+                placeholder="Temporary CN Max Time"
+              />
             </div>
             <div className="input-group font-pregular">
               <label>Customer Type</label>
-              <select>
+              <select
+                name="customer_type"
+                value={product.customer_type} // Set default value to product.policy_type
+                onChange={handleInputChange}
+              >
                 <option value="" disabled selected>
                   Select Customer Type
                 </option>
-                <option value="corporate">Corporate</option>
-                <option value="individual">Individual</option>
+                <option value="Corporate">Corporate</option>
+                <option value="Individual">Individual</option>
               </select>
             </div>
           </div>
