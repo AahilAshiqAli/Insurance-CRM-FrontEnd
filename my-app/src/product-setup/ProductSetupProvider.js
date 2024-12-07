@@ -15,6 +15,81 @@ const ProductSetupProvider = ({ children }) => {
   // State for storing product ID
   const [productId, setProductId] = useState(null);
 
+  const updateDatabase = () => {
+    if (!productId) return; // If no productId, don't fetch
+
+    setLoading(true);
+    setError(null);
+
+    // The token for authorization
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ";
+
+    // Prepare the updated data
+    const updatedData = {
+      product_name: productData.product_name,
+      product_abbreviation: productData.product_abbreviation,
+      package_name: productData.package_name,
+      policy_type: productData.policy_type,
+      policy_period: productData.policy_period,
+      temporary_cn_min_time: productData.temporary_cn_min_time,
+      temporary_cn_max_time: productData.temporary_cn_max_time,
+      customer_type: productData.customer_type,
+      peril_ids: productData.peril_ids, // Array of peril IDs to associate with the product
+      manufacturer: productData.manufacturer,
+      model: productData.model,
+      imei_serial_number: productData.imei_serial_number,
+      cnic: productData.cnic,
+      receipt_of_purchase: productData.receipt_of_purchase,
+      warranty_card_picture: productData.warranty_card_picture,
+      user_picture: productData.user_picture,
+      bank_statement: productData.bank_statement,
+      ntn_number: productData.ntn_number,
+      generate_renewal: productData.generate_renewal,
+      renewal_generation_frequency: productData.renewal_generation_frequency,
+      renewal_generation_value: productData.renewal_generation_value,
+      no_claim_discount: productData.no_claim_discount,
+      sum_insured_reduction: productData.sum_insured_reduction,
+      City: productData.City,
+      Age: productData.Age,
+      Profession: productData.Profession,
+      IncomeCategory: productData.IncomeCategory,
+      Business_Type: productData.Business_Type,
+      Customer_Badge: productData.Customer_Badge,
+    };
+
+    // Make the PUT request to update product data
+    fetch(`http://localhost:3000/api/product/${productId}`, {
+      method: "PUT", // Use PUT method to update the product
+      headers: {
+        "Content-Type": "application/json", // Tell the server the body contains JSON
+        Authorization: `Bearer ${token}`, // Include the authorization token
+      },
+      body: JSON.stringify(updatedData), // Send the updated product data in the body
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to update product data");
+        }
+        return response.json(); // Parse the JSON response
+      })
+      .then((data) => {
+        // Handle the updated product data (you can store it in state or display a message)
+        console.log("Product updated successfully:", data);
+      })
+      .catch((err) => {
+        // Set error state in case of failure
+        setError(err.message || "Failed to update product data");
+      })
+      .finally(() => {
+        setLoading(false); // Set loading state to false after request completion
+      });
+  };
+
+  useEffect(() => {
+    console.log("Hello world", productData);
+  }, [productData]);
+
   // Fetch product data when `productId` changes
   useEffect(() => {
     if (!productId) return; // If no productId, don't fetch
@@ -79,6 +154,8 @@ const ProductSetupProvider = ({ children }) => {
         error,
         productId,
         setProductId, // Function to set product ID
+        setProductData,
+        updateDatabase,
       }}
     >
       {children}

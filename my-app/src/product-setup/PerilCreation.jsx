@@ -7,7 +7,7 @@ import "./PerilCreation.css";
 
 const PerilCreation = () => {
   const navigate = useNavigate();
-  const { productData } = useProductSetup();
+  const { productId, productData, setProductData } = useProductSetup();
 
   // Initialize perilsData state to store an array of perils
   const [perilsData, setPerilsData] = useState([]);
@@ -76,7 +76,15 @@ const PerilCreation = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     //update ki query
+    if (productId) {
+      const updatedData = {
+        ...productData, // Spread all properties of productData
+        peril_ids: selectedPerils.map((peril) => peril.peril_id), // Extract peril_ids from selectedPerils
+      };
 
+      // Set the updated product data
+      setProductData(updatedData);
+    }
     navigate("/product-setup/insurable-interest");
   };
 

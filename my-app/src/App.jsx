@@ -22,6 +22,7 @@ import InsurableInterest from "./product-setup/InsurableInterest.jsx";
 import ProductSetupProvider from "./product-setup/ProductSetupProvider.js";
 import EntryScreen from "./product-setup/EntryScreen.jsx";
 import RenewalScreen from "./Renewal/Renewal.jsx";
+import EndorsementScreen from "./Endorcement/Endorsement.jsx";
 
 const ProductSetupWrapper = () => {
   console.log("kjkh");
@@ -81,6 +82,7 @@ function App() {
         />
         <Route path="product-setup/*" element={<ProductSetupWrapper />} />
         <Route path="Renewal/" element={<RenewalScreen />} />
+        <Route path="Endorsement/" element={<EndorsementScreen />} />
       </Routes>
     </Router>
   );

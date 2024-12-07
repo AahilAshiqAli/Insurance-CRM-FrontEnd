@@ -7,7 +7,10 @@ import { useProductSetup } from "./ProductSetupProvider";
 
 const ProductName = () => {
   const navigate = useNavigate();
-  const { productId, productData } = useProductSetup();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const { productId, productData, setProductData, setProductId } =
+    useProductSetup();
   const [product, setProduct] = useState({
     product_name: "",
     package_name: "",
@@ -20,7 +23,64 @@ const ProductName = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!productId) {
-      console.log("Insert this into the table");
+      setLoading(true);
+      setError(null);
+
+      const token =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ";
+      const insertData = {
+        product_name: product.product_name,
+        package_name: product.package_name,
+        product_abbreviation: product.product_abbreviation,
+        policy_type: product.policy_type,
+        policy_period: product.policy_period,
+        temporary_cn_min_time: product.temporary_cn_min_time,
+        temporary_cn_max_time: product.temporary_cn_max_time,
+        customer_type: product.customer_type,
+      };
+
+      fetch("http://localhost:3000/api/product", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(insertData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to create product");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          // Handle successful product creation
+          console.log("Product created successfully:", data);
+          const { productId } = data; // Assuming the response contains 'productId'
+          setProductId(productId);
+          setLoading(false); // Stop the loading state
+        })
+        .catch((error) => {
+          // Handle errors
+          setError(error.message);
+
+          setLoading(false); // Stop the loading state
+        });
+    } else {
+      const updatedData = {
+        ...productData, // Spread all properties of productData
+        product_name: product.product_name,
+        package_name: product.package_name,
+        product_abbreviation: product.product_abbreviation,
+        policy_type: product.policy_type,
+        policy_period: product.policy_period,
+        temporary_cn_min_time: product.temporary_cn_min_time,
+        temporary_cn_max_time: product.temporary_cn_max_time,
+        customer_type: product.customer_type,
+      };
+
+      // Set the updated product data
+      setProductData(updatedData);
     }
     navigate("/product-setup/peril-creation");
   };
