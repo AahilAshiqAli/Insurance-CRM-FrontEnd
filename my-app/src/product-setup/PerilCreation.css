@@ -80,6 +80,8 @@
   border-radius: 8px;
   width: 80%;
   max-width: 900px;
+  overflow-y: auto;
+  max-height: 80vh;
 }
 
 .modal-heading,

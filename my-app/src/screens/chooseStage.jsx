@@ -4,15 +4,16 @@ import Navbar from "../components/navbar"; // Import Link from react-router-dom
 
 const Dashboard = () => {
   const options = [
-    { title: "Product Setup", icon: "📦", path: "/product-setup/" },
+    { title: "Product Setup", icon: "📦", path: "/product-setup/choose" },
     {
       title: "Policy Process",
       icon: "🛡️",
       path: "/policy-creation/",
     },
     { title: "Claims Module", icon: "📄", path: "/" },
-    { title: "Endorsement", icon: "🔖", path: "/" },
-    { title: "Renewal", icon: "🔁", path: "/" },
+    { title: "Endorsement", icon: "🔖", path: "/Endorsement/" },
+
+    { title: "Renewal", icon: "🔁", path: "/Renewal/" },
   ];
 
   return (
