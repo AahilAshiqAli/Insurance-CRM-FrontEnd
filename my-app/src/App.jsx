@@ -23,6 +23,8 @@ import ProductSetupProvider from "./product-setup/ProductSetupProvider.js";
 import EntryScreen from "./product-setup/EntryScreen.jsx";
 import RenewalScreen from "./Renewal/Renewal.jsx";
 import EndorsementScreen from "./Endorcement/Endorsement.jsx";
+import Payment from "./Payment/payment.jsx";
+import AdminDashboard from "./components/AdminDashboard.jsx";
 
 const ProductSetupWrapper = () => {
   console.log("kjkh");
@@ -57,7 +59,7 @@ function App() {
           element={<CustomerInfo />}
         />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={<AdminDashboard />} />
         <Route path="/policy-creation/device-info" element={<DeviceInfo />} />
         <Route path="policy-creation/" element={<InsuranceCategory />} />
         <Route
