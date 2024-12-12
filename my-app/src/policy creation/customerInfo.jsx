@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
 import "./customerInfo.css";
 import SideBar from "../components/policy-sidebar";
 import Navbar from "../components/navbar";
 import { useNavigate } from "react-router-dom";
+import { usePolicy } from "./PolicyContext"; // Import the context hook
+import DebugPolicyContext from "./DebugPolicyContext";
 
 const CustomerInfo = () => {
   const [formData, setFormData] = useState({
@@ -27,6 +30,9 @@ const CustomerInfo = () => {
     cnicNumber: false,
   });
 
+  const { updatePolicyData } = usePolicy(); // Get the function to update the policy data
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -38,12 +44,24 @@ const CustomerInfo = () => {
     setVerified({ ...verified, [field]: true });
   };
 
-  const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-    navigate("/policy-creation/risk-questionaire");
+    
+    // Update the context with the customer data
+    updatePolicyData({
+      customerInfo: formData,
+    });
+
+    try {
+      const response = await axios.post(
+        "http://localhost:3000/api/policy_creation",
+        formData
+      );
+      console.log("Customer added:", response.data);
+      navigate("/policy-creation/risk-questionaire");
+    } catch (err) {
+      console.error("Error adding customer:", err.response?.data || err.message);
+    }
   };
 
   return (
@@ -91,7 +109,7 @@ const CustomerInfo = () => {
                   <input
                     type="tel"
                     name="contactNumber"
-                    value={formData.coFntactNumber}
+                    value={formData.contactNumber}
                     onChange={handleChange}
                     required
                     className="text-black-100"
@@ -280,8 +298,10 @@ const CustomerInfo = () => {
             </button>
           </div>
         </form>
+        <DebugPolicyContext />
       </div>
     </div>
+
   );
 };
 

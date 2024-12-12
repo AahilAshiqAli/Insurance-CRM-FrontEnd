@@ -39,9 +39,9 @@ const TemporaryCNWithQuote = () => {
             <button className="bg-orange-500 text-white py-2 flex-1 mx-1 rounded whitespace-nowrap">
               Issue TCN
             </button>
-            <button className="bg-blue-500 text-white py-2 flex-1 mx-1 rounded whitespace-nowrap">
+            {/* <button className="bg-blue-500 text-white py-2 flex-1 mx-1 rounded whitespace-nowrap">
               Send To Mob/Email
-            </button>
+            </button> */}
           </div>
         </div>
         <div>

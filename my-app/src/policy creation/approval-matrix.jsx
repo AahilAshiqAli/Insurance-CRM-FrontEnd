@@ -23,7 +23,7 @@ export const ApprovalMatrix = () => {
           </h2>
 
           {/* Approval Pending Section */}
-          {["CEO", "COO", "HOD", "SR,Manager"].map((title, index) => (
+          {["CEO", "COO"].map((title, index) => (
             <div className="approval-row" key={index}>
               <label className="font-pregular title">{title}</label>
               <input className="remarks-input" placeholder="Remarks" />
@@ -33,7 +33,7 @@ export const ApprovalMatrix = () => {
           ))}
 
           {/* Override Request Section */}
-          <h2 className="font-psemibold text-primary text-xl text-left m-5">
+          {/* <h2 className="font-psemibold text-primary text-xl text-left m-5">
             Override Request
           </h2>
           <div className="override-row">
@@ -41,14 +41,14 @@ export const ApprovalMatrix = () => {
             <input className="override-input" placeholder="Name" />
             <button className="status-btn">Status</button>
             <button className="request-btn">Request</button>
-          </div>
+          </div> */}
 
           {/* Add Picture Button */}
-          <div className="add-picture">
+          {/* <div className="add-picture">
             <button className="add-picture-btn text-primary-100 font-pregular">
               + Add Picture
             </button>
-          </div>
+          </div> */}
         </div>
         <div className="flex justify-end mt-16">
           <button

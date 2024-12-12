@@ -50,15 +50,13 @@ const PreInspection = () => {
               </div>
               <div className="button-group">
                 <button className="btn assign-btn font-pregular">Assign</button>
-                <button className="btn view-status-btn font-pregular">
+                {/* <button className="btn view-status-btn font-pregular">
                   View Status
-                </button>
+                </button> */}
               </div>
             </div>
 
-            {[
-              "Inspector Number",
-              "Inspector ID",
+            {/* {[
               "POC Number",
               "Current Status",
             ].map((field, index) => (
@@ -75,7 +73,7 @@ const PreInspection = () => {
                   <button className="btn view-btn font-pregular">View</button>
                 </div>
               </div>
-            ))}
+            ))} */}
           </div>
         </div>
         <div className="flex justify-end mt-16">

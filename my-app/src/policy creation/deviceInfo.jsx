@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Navbar from "../components/navbar";
 import Sidebar from "../components/policy-sidebar";
 import { useNavigate } from "react-router-dom";
+import { usePolicy } from "./PolicyContext"; // Import the context hook
 
 const DeviceInfo = () => {
   const [formData, setFormData] = useState({
@@ -15,6 +16,7 @@ const DeviceInfo = () => {
     warrantyStatus: "",
   });
 
+  const { updatePolicyData } = usePolicy(); // Get the function to update the policy data
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -26,7 +28,13 @@ const DeviceInfo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+
+    // Update the context with the device data
+    updatePolicyData({
+      deviceInfo: formData,
+    });
+
+    // Navigate to the next step (product selection screen)
     navigate("/policy-creation/perils");
   };
 
@@ -213,16 +221,17 @@ const DeviceInfo = () => {
               </div>
             </div>
           </section>
+
+          <div className="flex justify-end mt-16">
+            <button
+              type="submit"
+              className="py-4 px-10 bg-primary text-white font-psemibold rounded-md hover:bg-secondary transition duration-300"
+              onClick={handleSubmit}
+            >
+              Next
+            </button>
+          </div>
         </form>
-        <div className="flex justify-end mt-16">
-          <button
-            type="submit"
-            className="py-4 px-10 bg-primary text-white font-psemibold rounded-md hover:bg-secondary transition duration-300"
-            onClick={handleSubmit}
-          >
-            Next
-          </button>
-        </div>
       </div>
     </div>
   );

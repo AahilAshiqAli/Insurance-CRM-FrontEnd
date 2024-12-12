@@ -25,6 +25,7 @@ import RenewalScreen from "./Renewal/Renewal.jsx";
 import EndorsementScreen from "./Endorcement/Endorsement.jsx";
 import Payment from "./Payment/payment.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
+import { PolicyProvider } from "./policy creation/PolicyContext";
 
 const ProductSetupWrapper = () => {
   console.log("kjkh");
@@ -51,6 +52,7 @@ const ProductSetupWrapper = () => {
 function App() {
   console.log("jbjhbkj");
   return (
+    <PolicyProvider>
     <Router>
       <Routes>
         <Route path="/" element={<ChooseModule />} />
@@ -61,16 +63,16 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<AdminDashboard />} />
         <Route path="/policy-creation/device-info" element={<DeviceInfo />} />
-        <Route path="policy-creation/" element={<InsuranceCategory />} />
+        <Route path="/policy-creation/" element={<InsuranceCategory />} />
         <Route
-          path="policy-creation/risk-questionaire"
+          path="/policy-creation/risk-questionaire"
           element={<RiskQuestionnaire />}
         />
-        <Route path="policy-creation/perils" element={<Perils />} />
-        <Route path="policy-creation/tcn" element={<TemporaryCNWithQuote />} />
-        <Route path="policy-creation/issue-policy" element={<IssuePolicy />} />
+        <Route path="/policy-creation/perils" element={<Perils />} />
+        <Route path="/policy-creation/tcn" element={<TemporaryCNWithQuote />} />
+        <Route path="/policy-creation/issue-policy" element={<IssuePolicy />} />
         <Route
-          path="policy-creation/approval-matrix"
+          path="/policy-creation/approval-matrix"
           element={<ApprovalMatrix />}
         />
         <Route path="policy-creation/kyc" element={<KYC />} />
@@ -87,6 +89,7 @@ function App() {
         <Route path="Endorsement/" element={<EndorsementScreen />} />
       </Routes>
     </Router>
+    </PolicyProvider>
   );
 }
 

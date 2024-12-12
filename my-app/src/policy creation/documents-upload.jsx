@@ -18,7 +18,7 @@ const DocumentsUpload = () => {
       <div className="file-upload-container">
         <div className="content-container">
           <h2 className="font-psemibold text-primary text-3xl text-left m-5">
-            Know your Customer
+            Picture Upload
           </h2>
 
           {/* First Section - Pre Inspection */}
@@ -27,10 +27,10 @@ const DocumentsUpload = () => {
               {[
                 { label: "Front Picture", placeholder: "Front.pdf" },
                 { label: "Back Picture", placeholder: "Back.pdf" },
-                { label: "Left Picture", placeholder: "Left.pdf" },
-                { label: "Right Picture", placeholder: "Right.pdf" },
-                { label: "Top Picture", placeholder: "Top.pdf" },
-                { label: "360 Video", placeholder: "Video.pdf" },
+                // { label: "Left Picture", placeholder: "Left.pdf" },
+                // { label: "Right Picture", placeholder: "Right.pdf" },
+                // { label: "Top Picture", placeholder: "Top.pdf" },
+                // { label: "360 Video", placeholder: "Video.pdf" },
               ].map((item, index) => (
                 <div className="file-row" key={index}>
                   <div className="input-group">
@@ -64,14 +64,14 @@ const DocumentsUpload = () => {
             <div className="file-grid font-pregular">
               {[
                 { label: "CNIC Picture", placeholder: "CNIC.pdf" },
-                {
-                  label: "Receipt of purchase from retailer",
-                  placeholder: "Receipt.pdf",
-                },
+                // {
+                //   label: "Receipt of purchase from retailer",
+                //   placeholder: "Receipt.pdf",
+                // },
                 { label: "Warranty card picture", placeholder: "Warranty.pdf" },
-                { label: "User Picture", placeholder: "User.pdf" },
-                { label: "Bank Statement", placeholder: "Statement.pdf" },
-                { label: "NTN Number", placeholder: "NTN.pdf" },
+                // { label: "User Picture", placeholder: "User.pdf" },
+                // { label: "Bank Statement", placeholder: "Statement.pdf" },
+                // { label: "NTN Number", placeholder: "NTN.pdf" },
               ].map((item, index) => (
                 <div className="file-row" key={index}>
                   <div className="input-group">
