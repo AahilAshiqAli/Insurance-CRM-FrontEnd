@@ -18,8 +18,7 @@ const EntryScreen = () => {
   };
 
   const handleDelete = (productId) => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzI0MzYwOSwiZXhwIjoxNzM2ODQzNjA5fQ.P_jHI1g8jST9T5sHppb36gh0ZBV14M9lzbxx9ZkU88A";
+    const token = localStorage.getItem("jwt_token");
     setLoading(true);
     fetch(`http://localhost:3000/api/product/${productId}`, {
       method: "DELETE",
@@ -54,9 +53,7 @@ const EntryScreen = () => {
   };
 
   useEffect(() => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzI0MzYwOSwiZXhwIjoxNzM2ODQzNjA5fQ.P_jHI1g8jST9T5sHppb36gh0ZBV14M9lzbxx9ZkU88A";
-    setLoading(true);
+    const token = localStorage.getItem("jwt_token");
     fetch("http://localhost:3000/api/product/", {
       method: "GET",
       headers: {

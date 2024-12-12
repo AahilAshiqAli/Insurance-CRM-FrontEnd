@@ -31,9 +31,7 @@ const PerilCreation = () => {
     if (productData) {
       setLoading(true);
       setError(null); // Clear previous errors
-
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ"; // Replace with actual token
+      const token = localStorage.getItem("jwt_token");
 
       // Fetch data from the backend API for perils
       fetch("http://localhost:3000/api/perils", {

@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import ChooseModule from "./screens/chooseStage";
 import CustomerInfo from "./policy creation/customerInfo";
 import Login from "./auth/login";
@@ -25,14 +30,12 @@ import RenewalScreen from "./Renewal/Renewal.jsx";
 import EndorsementScreen from "./Endorcement/Endorsement.jsx";
 import Payment from "./Payment/payment.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
-import { PolicyProvider } from "./policy creation/PolicyContext";
+import PolicyProvider from "./policy creation/PolicyContext";
 
+// Product Setup Wrapper
 const ProductSetupWrapper = () => {
-  console.log("kjkh");
   return (
     <ProductSetupProvider>
-      {" "}
-      {/* You can wrap the context here if needed */}
       <Routes>
         <Route path="/" element={<ProductName />} />
         <Route path="/choose" element={<EntryScreen />} />
@@ -49,47 +52,43 @@ const ProductSetupWrapper = () => {
   );
 };
 
-function App() {
-  console.log("jbjhbkj");
+// Policy Creation Wrapper
+const PolicyCreationWrapper = () => {
   return (
     <PolicyProvider>
+      <Routes>
+        <Route path="customer-info" element={<CustomerInfo />} />
+        <Route path="device-info" element={<DeviceInfo />} />
+        <Route path="/" element={<InsuranceCategory />} />
+        <Route path="risk-questionaire" element={<RiskQuestionnaire />} />
+        <Route path="perils" element={<Perils />} />
+        <Route path="tcn" element={<TemporaryCNWithQuote />} />
+        <Route path="issue-policy" element={<IssuePolicy />} />
+        <Route path="approval-matrix" element={<ApprovalMatrix />} />
+        <Route path="kyc" element={<KYC />} />
+        <Route path="pre-inspection" element={<Preinspection />} />
+        <Route path="documents-upload" element={<DocumentsUpload />} />
+        <Route path="/endorsement" element={<EndorsementScreen />} />
+        <Route path="/renewal" element={<RenewalScreen />} />
+      </Routes>
+    </PolicyProvider>
+  );
+};
+
+// App Component
+function App() {
+  return (
     <Router>
       <Routes>
-        <Route path="/" element={<ChooseModule />} />
-        <Route
-          path="policy-creation/customer-info"
-          element={<CustomerInfo />}
-        />
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="/choose" element={<ChooseModule />} />
         <Route path="/login" element={<Login />} />
         <Route path="/dashboard" element={<AdminDashboard />} />
-        <Route path="/policy-creation/device-info" element={<DeviceInfo />} />
-        <Route path="/policy-creation/" element={<InsuranceCategory />} />
-        <Route
-          path="/policy-creation/risk-questionaire"
-          element={<RiskQuestionnaire />}
-        />
-        <Route path="/policy-creation/perils" element={<Perils />} />
-        <Route path="/policy-creation/tcn" element={<TemporaryCNWithQuote />} />
-        <Route path="/policy-creation/issue-policy" element={<IssuePolicy />} />
-        <Route
-          path="/policy-creation/approval-matrix"
-          element={<ApprovalMatrix />}
-        />
-        <Route path="policy-creation/kyc" element={<KYC />} />
-        <Route
-          path="policy-creation/pre-inspection"
-          element={<Preinspection />}
-        />
-        <Route
-          path="policy-creation/documents-upload"
-          element={<DocumentsUpload />}
-        />
-        <Route path="product-setup/*" element={<ProductSetupWrapper />} />
-        <Route path="Renewal/" element={<RenewalScreen />} />
-        <Route path="Endorsement/" element={<EndorsementScreen />} />
+        <Route path="/policy-creation/*" element={<PolicyCreationWrapper />} />
+        <Route path="/product-setup/*" element={<ProductSetupWrapper />} />
+        <Route path="/renewal" element={<RenewalScreen />} />
       </Routes>
     </Router>
-    </PolicyProvider>
   );
 }
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/navbar";
 import Sidebar from "../components/policy-sidebar";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { usePolicy } from "./PolicyContext"; // Import the context hook
 
 const DeviceInfo = () => {
   const [formData, setFormData] = useState({
-    deviceType: "",
+    deviceType: "Mobile - Samsung Galaxy S21",
     brandName: "",
     deviceModel: "",
     deviceSerialNumber: "",
@@ -16,8 +16,25 @@ const DeviceInfo = () => {
     warrantyStatus: "",
   });
 
-  const { updatePolicyData } = usePolicy(); // Get the function to update the policy data
+  const { policyData, updatePolicyData } = usePolicy(); // Get the function to update the policy data
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Ensure the data is available before attempting to set the state
+    console.log(policyData);
+    if (policyData) {
+      setFormData({
+        deviceType: policyData.device_type || "",
+        brandName: policyData.brand_name || "",
+        deviceModel: policyData.device_model || "",
+        deviceSerialNumber: policyData.device_serial_number || "",
+        purchaseDate: policyData.purchase_date || "",
+        deviceValue: policyData.device_value || "",
+        deviceCondition: policyData.device_condition || "",
+        warrantyStatus: policyData.warranty_status || "",
+      });
+    }
+  }, [policyData]);
 
   const handleChange = (e) => {
     setFormData({

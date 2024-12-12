@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./customerInfo.css";
 import SideBar from "../components/policy-sidebar";
@@ -30,9 +30,29 @@ const CustomerInfo = () => {
     cnicNumber: false,
   });
 
-  const { updatePolicyData } = usePolicy(); // Get the function to update the policy data
+  const { policyData, updatePolicyData } = usePolicy(); // Get the function to update the policy data
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Ensure the data is available before attempting to set the state
+    if (policyData) {
+      setFormData({
+        firstName: policyData.first_name || "",
+        lastName: policyData.last_name || "",
+        contactNumber: policyData.phone_number || "",
+        email: policyData.email || "",
+        ntn: "", // No field for `ntn` in the policyData, so leave it blank
+        cnicNumber: policyData.cnic || "",
+        pocName: policyData.inspector_name || "",
+        pocNumber: policyData.inspector_phone || "",
+        pocCnicNumber: "", // No field for `pocCnicNumber` in the policyData, so leave it blank
+        relationshipWithCustomer: "", // No field for `relationshipWithCustomer` in the policyData, so leave it blank
+        currentAddress: policyData.address || "",
+        officeAddress: policyData.office_address || "",
+      });
+    }
+    console.log(policyData ? policyData : "No policy data available");
+  }, [policyData]);
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -46,7 +66,7 @@ const CustomerInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     // Update the context with the customer data
     updatePolicyData({
       customerInfo: formData,
@@ -60,7 +80,10 @@ const CustomerInfo = () => {
       console.log("Customer added:", response.data);
       navigate("/policy-creation/risk-questionaire");
     } catch (err) {
-      console.error("Error adding customer:", err.response?.data || err.message);
+      console.error(
+        "Error adding customer:",
+        err.response?.data || err.message
+      );
     }
   };
 
@@ -301,7 +324,6 @@ const CustomerInfo = () => {
         <DebugPolicyContext />
       </div>
     </div>
-
   );
 };
 

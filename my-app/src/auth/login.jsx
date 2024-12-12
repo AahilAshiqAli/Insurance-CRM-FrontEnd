@@ -1,13 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import image from "../constants/images";
 import "./login.css"; // Import your custom CSS file for layout and positioning
 import Dashboard from "../components/dashboard";
 import { useNavigate } from "react-router-dom";
 
 const LoginScreen = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const handleClick = () => {
-    navigate("/");
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submission
+    setLoading(true);
+    setError(null);
+
+    const requestBody = {
+      email: email,
+      password: password,
+    };
+
+    fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Login failed! Please check your credentials.");
+        }
+        return response.json(); // Parse JSON response
+      })
+      .then((data) => {
+        console.log("Login successful:", data);
+        const token = data.token;
+        localStorage.setItem("jwt_token", token);
+        navigate("/choose"); // Redirect on successful login
+      })
+      .catch((err) => {
+        console.error("Error:", err.message);
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -19,7 +58,10 @@ const LoginScreen = () => {
         <p className="text-center text-gray-600 mb-8">
           Enter Your Login Credentials Here
         </p>
-        <form className="space-y-6 w-full max-w-md px-6">
+        <form
+          className="space-y-6 w-full max-w-md px-6"
+          onSubmit={handleSubmit}
+        >
           <div className="input-group flex flex-col">
             <label htmlFor="email" className="text-gray-700 font-medium mb-2">
               Email
@@ -29,6 +71,9 @@ const LoginScreen = () => {
               id="email"
               placeholder="aahilashiqali@gmail.com"
               className="input-field p-3 border border-gray-300 rounded-md text-black-100 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
           <div className="input-group flex flex-col">
@@ -44,6 +89,9 @@ const LoginScreen = () => {
                 id="password"
                 placeholder="***************"
                 className="input-field p-3 w-full border text-black-100 border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary transition duration-200"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
               />
               <span className="password-toggle absolute inset-y-0 right-3 flex items-center cursor-pointer text-gray-500 hover:text-secondary">
                 <i className="icon-eye"></i>
@@ -68,10 +116,11 @@ const LoginScreen = () => {
           <button
             type="submit"
             className="login-button w-full py-3 bg-primary text-white font-medium rounded-md hover:bg-secondary-200 transition duration-300"
-            onClick={handleClick}
+            disabled={loading}
           >
-            Sign In
+            {loading ? "Logging in..." : "Sign In"}
           </button>
+          {error && <p className="text-red-500 mt-2">{error}</p>}
         </form>
       </div>
 

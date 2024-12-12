@@ -20,14 +20,78 @@ const ProductName = () => {
     temporary_cn_max_time: "",
     customer_type: "",
   });
+  const validateInputs = () => {
+    const {
+      product_name,
+      package_name,
+      product_abbreviation,
+      policy_type,
+      policy_period,
+      temporary_cn_min_time,
+      temporary_cn_max_time,
+      customer_type,
+    } = product;
+
+    if (!product_name.trim()) {
+      alert("Product Name is required.");
+      return false;
+    }
+
+    if (product.package === "yes" && !package_name.trim()) {
+      alert("Package Name is required when 'Package' is 'Yes'.");
+      return false;
+    }
+
+    if (!product_abbreviation.trim()) {
+      alert("Product Abbreviation is required.");
+      return false;
+    }
+
+    if (!policy_type) {
+      alert("Please select a Policy Type.");
+      return false;
+    }
+
+    if (!policy_period) {
+      alert("Please select a Policy Period.");
+      return false;
+    }
+
+    if (isNaN(temporary_cn_min_time) || temporary_cn_min_time === "") {
+      alert("Temporary CN Minimum Time must be a valid number.");
+      return false;
+    }
+
+    if (isNaN(temporary_cn_max_time) || temporary_cn_max_time === "") {
+      alert("Temporary CN Maximum Time must be a valid number.");
+      return false;
+    }
+
+    if (Number(temporary_cn_min_time) > Number(temporary_cn_max_time)) {
+      alert(
+        "Temporary CN Minimum Time cannot be greater than Temporary CN Maximum Time."
+      );
+      return false;
+    }
+
+    if (!customer_type) {
+      alert("Please select a Customer Type.");
+      return false;
+    }
+
+    return true;
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateInputs()) {
+      return; // Stop if validation fails
+    }
     if (!productId) {
       setLoading(true);
       setError(null);
 
-      const token =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ";
+      const token = localStorage.getItem("jwt_token");
       const insertData = {
         product_name: product.product_name,
         package_name: product.package_name,

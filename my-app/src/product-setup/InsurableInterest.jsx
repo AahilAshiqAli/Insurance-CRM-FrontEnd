@@ -73,8 +73,7 @@ const InsurableInterest = () => {
       setProductData(updatedData);
     }
     // Token for authorization (replace with actual token retrieval logic)
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzI0MzYwOSwiZXhwIjoxNzM2ODQzNjA5fQ.P_jHI1g8jST9T5sHppb36gh0ZBV14M9lzbxx9ZkU88A";
+    const token = localStorage.getItem("jwt_token");
 
     // Filter the risk descriptions where the status is "updated" and "inserted"
     const updatedRiskDescriptions = uniqueRiskDescriptions.filter(

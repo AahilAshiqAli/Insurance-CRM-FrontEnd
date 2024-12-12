@@ -22,8 +22,7 @@ const ProductSetupProvider = ({ children }) => {
     setError(null);
 
     // The token for authorization
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ";
+    const token = localStorage.getItem("jwt_token");
 
     // Prepare the updated data
     const updatedData = {
