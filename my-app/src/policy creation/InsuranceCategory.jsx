@@ -6,7 +6,7 @@ import SideBar from "../components/policy-sidebar";
 import { usePolicy } from "./PolicyContext";
 
 const InsuranceCategory = () => {
-  const { policyData, updatePolicyData } = usePolicy(); // Destructure policyData and updatePolicyData from context
+  const { policyData, setPolicyData } = usePolicy(); // Destructure policyData and updatePolicyData from context
   const [selectedLicenseType, setSelectedLicenseType] = useState("");
   const [selectedDeviceType, setSelectedDeviceType] = useState("");
   const navigate = useNavigate();
@@ -18,7 +18,7 @@ const InsuranceCategory = () => {
       setSelectedDeviceType(policyData.device_type || "");
     }
     console.log(
-      policyData ? policyData.licenseType : "No licenseType available"
+      policyData ? policyData.license_type : "No licenseType available"
     );
   }, [policyData]);
 
@@ -30,11 +30,12 @@ const InsuranceCategory = () => {
     setSelectedDeviceType(type);
   };
 
-  const handleRedirect = async () => {
+  const handleRedirect = () => {
     // Update the context with the selected values
-    updatePolicyData({
-      licenseType: selectedLicenseType,
-      deviceType: selectedDeviceType,
+    setPolicyData({
+      ...policyData,
+      license_type: selectedLicenseType,
+      device_type: selectedDeviceType,
     });
 
     // Navigate to the next screen

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./customerInfo.css";
 import SideBar from "../components/policy-sidebar";
 import Navbar from "../components/navbar";
 import { useNavigate } from "react-router-dom";
 import { usePolicy } from "./PolicyContext"; // Import the context hook
-import DebugPolicyContext from "./DebugPolicyContext";
 
 const CustomerInfo = () => {
   const [formData, setFormData] = useState({
@@ -30,10 +28,11 @@ const CustomerInfo = () => {
     cnicNumber: false,
   });
 
-  const { policyData, updatePolicyData } = usePolicy(); // Get the function to update the policy data
+  const { policyData, setPolicyData } = usePolicy(); // Get the function to update the policy data
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(policyData);
     // Ensure the data is available before attempting to set the state
     if (policyData) {
       setFormData({
@@ -43,10 +42,10 @@ const CustomerInfo = () => {
         email: policyData.email || "",
         ntn: "", // No field for `ntn` in the policyData, so leave it blank
         cnicNumber: policyData.cnic || "",
-        pocName: policyData.inspector_name || "",
-        pocNumber: policyData.inspector_phone || "",
-        pocCnicNumber: "", // No field for `pocCnicNumber` in the policyData, so leave it blank
-        relationshipWithCustomer: "", // No field for `relationshipWithCustomer` in the policyData, so leave it blank
+        pocName: policyData.poc_name || "",
+        pocNumber: policyData.poc_number || "",
+        pocCnicNumber: policyData.poc_cnic || "", // No field for `pocCnicNumber` in the policyData, so leave it blank
+        relationshipWithCustomer: policyData.relationship_with_customer || "", // No field for `relationshipWithCustomer` in the policyData, so leave it blank
         currentAddress: policyData.address || "",
         officeAddress: policyData.office_address || "",
       });
@@ -66,25 +65,22 @@ const CustomerInfo = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    // Update the context with the customer data
-    updatePolicyData({
-      customerInfo: formData,
+    setPolicyData({
+      ...policyData,
+      first_name: formData.firstName,
+      last_name: formData.lastName,
+      phone_number: formData.contactNumber,
+      email: formData.email,
+      cnic: formData.cnicNumber,
+      poc_name: formData.pocName,
+      poc_number: formData.pocNumber,
+      poc_cnic: formData.pocCnicNumber,
+      relationship_with_customer: formData.relationshipWithCustomer,
+      address: formData.currentAddress,
+      office_address: formData.officeAddress,
     });
-
-    try {
-      const response = await axios.post(
-        "http://localhost:3000/api/policy_creation",
-        formData
-      );
-      console.log("Customer added:", response.data);
-      navigate("/policy-creation/risk-questionaire");
-    } catch (err) {
-      console.error(
-        "Error adding customer:",
-        err.response?.data || err.message
-      );
-    }
+    navigate("/policy-creation/device-info");
+    // Update the context with the customer data
   };
 
   return (
@@ -176,29 +172,6 @@ const CustomerInfo = () => {
               </div>
             </div>
             <div className="form-row font-pregular">
-              <div className="form-group">
-                <label>NTN</label>
-                <div className="input-with-icon">
-                  <input
-                    type="text"
-                    name="ntn"
-                    value={formData.ntn}
-                    onChange={handleChange}
-                    required
-                    className="text-black-100"
-                  />
-                  {verified.ntn && <span className="verified-icon">✔️</span>}
-                  {!verified.ntn && (
-                    <button
-                      type="button"
-                      onClick={() => handleVerification("ntn")}
-                      className="verify-btn bg-primary hover:bg-secondary-200"
-                    >
-                      Verify
-                    </button>
-                  )}
-                </div>
-              </div>
               <div className="form-group">
                 <label>CNIC Number</label>
                 <div className="input-with-icon">
@@ -321,7 +294,6 @@ const CustomerInfo = () => {
             </button>
           </div>
         </form>
-        <DebugPolicyContext />
       </div>
     </div>
   );

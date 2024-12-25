@@ -8,17 +8,19 @@ import "./perils.css"; // Custom CSS for this screen
 
 export const Perils = () => {
   const navigate = useNavigate();
-  const { updatePolicyData } = usePolicy(); // Access the updatePolicy function from context
+  const { policyData, setPolicyData } = usePolicy(); // Access the updatePolicy function from context
 
   // State to store the list of products
   const [products, setProducts] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState(null);
+  const [productId, setSelectedProductId] = useState(null);
 
   // State for quote and discount
   const [showTable, setShowTable] = useState(false);
   const [quoteAmount, setQuoteAmount] = useState(30000); // Default quote amount
   const [discount, setDiscount] = useState(5000); // Default discount
-  const [remainingAmount, setRemainingAmount] = useState(quoteAmount - discount);
+  const [remainingAmount, setRemainingAmount] = useState(
+    quoteAmount - discount
+  );
 
   // Fetch products from the backend API when the component mounts
   useEffect(() => {
@@ -28,19 +30,28 @@ export const Perils = () => {
           "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzg5ODQ2NiwiZXhwIjoxNzM3NDk4NDY2fQ.4W_qeUbok_4qNGIsi0WY7NbBA4M8YNManoHJk2GY6Wo";
 
         const response = await axios.get("http://localhost:3000/api/product", {
-          headers: {
-            Authorization: `Bearer ${token}`, // Send the token as Bearer in the Authorization header
-          },
+          headers: { Authorization: `Bearer ${token}` }, // Include token
         });
 
         setProducts(response.data);
+
+        // Check if policyData exists and contains a productId
+        if (policyData && policyData.product_id) {
+          const existingProduct = response.data.find(
+            (product) => product.product_id === policyData.product_id
+          );
+
+          if (existingProduct) {
+            handleProductClick(policyData.product_id); // Trigger the product selection
+          }
+        }
       } catch (error) {
         console.error("Error fetching products:", error);
       }
     };
 
     fetchProducts();
-  }, []);
+  }, [policyData]); // Add policyData as a dependency
 
   // Handle product selection
   const handleProductClick = (productId) => {
@@ -49,17 +60,17 @@ export const Perils = () => {
 
     // Update policy context with selected product and quote details
     //ismey sirf final_quote ko nahi updaet karein ?
-    updatePolicyData({
-        productId,
-        quoteAmount,
-        discount,
-        remainingAmount: quoteAmount - discount,
-    });
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setPolicyData({
+      ...policyData,
+      product_id: productId,
+    });
+
     navigate("/policy-creation/pre-inspection");
   };
 
@@ -78,7 +89,11 @@ export const Perils = () => {
             {products.map((product) => (
               <div
                 key={product.product_id}
-                className="package-card"
+                className={`package-card ${
+                  productId === product.product_id
+                    ? "package-card-selected"
+                    : ""
+                }`}
                 onClick={() => handleProductClick(product.product_id)}
               >
                 <div className="package-icon">

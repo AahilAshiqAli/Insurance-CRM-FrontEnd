@@ -58,7 +58,7 @@
   padding: 20px;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
   cursor: pointer;
 }
 
@@ -67,6 +67,11 @@
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
 
+.package-card-selected {
+  background-color: #1f7; /* Highlight selected card */
+  color: white; /* Change text color for better contrast */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
 /* Package icons */
 .package-icon {
   font-size: 50px;

@@ -11,7 +11,7 @@ const Dashboard = () => {
       path: "/policy-creation/",
     },
     { title: "Claims Module", icon: "📄", path: "/" },
-    { title: "Endorsement", icon: "🔖", path: "/Endorsement/" },
+    { title: "Endorsement", icon: "🔖", path: "/policy-creation/endorsement" },
 
     { title: "Renewal", icon: "🔁", path: "/Renewal/" },
   ];

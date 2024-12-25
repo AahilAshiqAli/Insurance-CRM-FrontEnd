@@ -1,16 +1,67 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../components/navbar";
 import PolicySidebar from "../components/policy-sidebar";
 import { useNavigate } from "react-router-dom";
+import { usePolicy } from "./PolicyContext"; // Import the custom hook
 import "./pre-inspection.css";
 
 const PreInspection = () => {
   const navigate = useNavigate();
+  const { policyData, setPolicyData, updatePolicyData, policyId, setPolicyId } =
+    usePolicy(); // Custom hook to manage policy data
 
+  // State for form inputs
+  const [formData, setFormData] = useState({
+    location: "",
+    phone: "",
+    inspector: "",
+  });
+  const [flag, setFlag] = useState(false);
+
+  useEffect(() => {
+    // Ensure the data is available before attempting to set the state
+    if (policyData) {
+      setFormData({
+        location: policyData.inspector_location || "",
+        phone: policyData.inspector_phone || "",
+        inspector: policyData.inspector_name || "",
+      });
+    }
+  }, [policyData]);
+
+  // Handle input value changes
+  const handleChange = (e) => {
+    const { id, value } = e.target; // Extract id and value from the input field
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value, // Update the specific field by its id
+    }));
+  };
+
+  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/policy-creation/documents-upload");
+    setPolicyData({
+      ...policyData,
+      inspector_location: formData.location,
+      inspector_phone: formData.phone,
+      inspector_name: formData.inspector, // Merge form data into the policy context
+    });
+    setFlag(true);
+    if (!policyId) setPolicyId(100);
+    alert("hhh");
   };
+
+  useEffect(() => {
+    if (flag) {
+      alert("fff");
+      console.log("hello");
+      updatePolicyData();
+      setFlag(false);
+      navigate("/policy-creation/documents-upload");
+    }
+  }, [flag]);
+
   return (
     <div className="body">
       <Navbar /> {/* Navbar on top */}
@@ -21,18 +72,17 @@ const PreInspection = () => {
             Pre Inspection
           </h2>
 
+          {/* Location input */}
           <div className="form-row font-pregular">
             <div className="input-group">
-              <label htmlFor="name">Name</label>
-              <input type="text" id="name" placeholder="Enter name" />
-            </div>
-            <div className="input-group">
               <label htmlFor="location">Location</label>
-              <input type="text" id="location" placeholder="Enter location" />
-            </div>
-            <div className="input-group">
-              <label htmlFor="phone">Cell Phone</label>
-              <input type="text" id="phone" placeholder="Enter phone number" />
+              <input
+                type="text"
+                id="location"
+                placeholder="Enter location"
+                value={formData.location} // Bind input to state
+                onChange={handleChange} // Update state on change
+              />
             </div>
           </div>
 
@@ -40,42 +90,33 @@ const PreInspection = () => {
 
           <div className="form-section font-pregular">
             <div className="input-button-group">
+              {/* Inspector assigned input */}
               <div className="input-group">
                 <label htmlFor="inspector">Inspector assigned</label>
                 <input
                   type="text"
                   id="inspector"
                   placeholder="Enter inspector name"
+                  value={formData.inspector} // Bind input to state
+                  onChange={handleChange} // Update state on change
                 />
               </div>
-              <div className="button-group">
-                <button className="btn assign-btn font-pregular">Assign</button>
-                {/* <button className="btn view-status-btn font-pregular">
-                  View Status
-                </button> */}
+              {/* Phone input */}
+              <div className="input-group">
+                <label htmlFor="phone">Cell Phone</label>
+                <input
+                  type="text"
+                  id="phone"
+                  placeholder="Enter phone number"
+                  value={formData.phone} // Bind input to state
+                  onChange={handleChange} // Update state on change
+                />
               </div>
             </div>
-
-            {/* {[
-              "POC Number",
-              "Current Status",
-            ].map((field, index) => (
-              <div className="input-button-group" key={index}>
-                <div className="input-group">
-                  <label htmlFor={field}>{field}</label>
-                  <input
-                    type="text"
-                    id={field}
-                    placeholder={`Enter ${field.toLowerCase()}`}
-                  />
-                </div>
-                <div className="button-group">
-                  <button className="btn view-btn font-pregular">View</button>
-                </div>
-              </div>
-            ))} */}
           </div>
         </div>
+
+        {/* Submit button */}
         <div className="flex justify-end mt-16">
           <button
             type="submit"

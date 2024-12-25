@@ -86,7 +86,6 @@ function App() {
         <Route path="/dashboard" element={<AdminDashboard />} />
         <Route path="/policy-creation/*" element={<PolicyCreationWrapper />} />
         <Route path="/product-setup/*" element={<ProductSetupWrapper />} />
-        <Route path="/renewal" element={<RenewalScreen />} />
       </Routes>
     </Router>
   );

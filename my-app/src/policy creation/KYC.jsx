@@ -43,8 +43,8 @@ const Kyc = () => {
               {[
                 { label: "Front Picture", placeholder: "Front.pdf" },
                 { label: "Back Picture", placeholder: "Back.pdf" },
-                // { label: "Left Picture", placeholder: "Left.pdf" },
-                // { label: "Right Picture", placeholder: "Right.pdf" },
+                { label: "Left Picture", placeholder: "Left.pdf" },
+                { label: "Right Picture", placeholder: "Right.pdf" },
                 // { label: "Top Picture", placeholder: "Top.pdf" },
                 // { label: "360 Video", placeholder: "Video.pdf" },
               ].map((item, index) => (

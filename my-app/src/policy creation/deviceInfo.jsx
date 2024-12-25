@@ -6,7 +6,6 @@ import { usePolicy } from "./PolicyContext"; // Import the context hook
 
 const DeviceInfo = () => {
   const [formData, setFormData] = useState({
-    deviceType: "Mobile - Samsung Galaxy S21",
     brandName: "",
     deviceModel: "",
     deviceSerialNumber: "",
@@ -16,7 +15,7 @@ const DeviceInfo = () => {
     warrantyStatus: "",
   });
 
-  const { policyData, updatePolicyData } = usePolicy(); // Get the function to update the policy data
+  const { policyData, setPolicyData } = usePolicy(); // Get the function to update the policy data
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +23,6 @@ const DeviceInfo = () => {
     console.log(policyData);
     if (policyData) {
       setFormData({
-        deviceType: policyData.device_type || "",
         brandName: policyData.brand_name || "",
         deviceModel: policyData.device_model || "",
         deviceSerialNumber: policyData.device_serial_number || "",
@@ -47,8 +45,15 @@ const DeviceInfo = () => {
     e.preventDefault();
 
     // Update the context with the device data
-    updatePolicyData({
-      deviceInfo: formData,
+    setPolicyData({
+      ...policyData,
+      brand_name: formData.brandName,
+      device_model: formData.deviceModel,
+      device_serial_number: formData.deviceSerialNumber,
+      purchase_date: formData.purchaseDate,
+      device_value: formData.deviceValue,
+      device_condition: formData.deviceCondition,
+      warranty_status: formData.warrantyStatus,
     });
 
     // Navigate to the next step (product selection screen)
@@ -90,20 +95,6 @@ const DeviceInfo = () => {
             <div className="grid grid-cols-3 gap-6 mb-6">
               <div className="form-group">
                 <label className="block text-primary font-pregular mb-2">
-                  Device Type
-                </label>
-                <input
-                  type="text"
-                  name="deviceType"
-                  value={formData.deviceType}
-                  onChange={handleChange}
-                  placeholder="Enter Device Type"
-                  className="w-full border border-gray-300 rounded-md text-black-100 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200 placeholder:text-secondary placeholder:text-sm" // Adjusted placeholder styles
-                  required
-                />
-              </div>
-              <div className="form-group">
-                <label className="block text-primary font-pregular mb-2">
                   Brand Name
                 </label>
                 <input
@@ -115,6 +106,33 @@ const DeviceInfo = () => {
                   className="w-full border border-gray-300 rounded-md text-black-100 focus:outline-none focus:ring-2 focus:ring-primary transition duration-200 placeholder:text-secondary placeholder:text-sm"
                   required
                 />
+              </div>
+              <div className="form-group">
+                <label className="block text-primary font-pregular mb-2">
+                  Warranty Status
+                </label>
+                <select
+                  name="warrantyStatus"
+                  value={formData.warrantyStatus}
+                  onChange={handleChange}
+                  style={styles.select}
+                  required
+                >
+                  <option
+                    value=""
+                    disabled
+                    selected
+                    style={styles.placeholderOption}
+                  >
+                    Select Warranty Status
+                  </option>
+                  <option value="New" style={styles.hoverOption}>
+                    Yes
+                  </option>
+                  <option value="Good" style={styles.hoverOption}>
+                    No
+                  </option>
+                </select>
               </div>
               <div className="form-group">
                 <label className="block text-primary font-pregular mb-2">
@@ -206,33 +224,6 @@ const DeviceInfo = () => {
                   </option>
                   <option value="Poor" style={styles.hoverOption}>
                     Poor
-                  </option>
-                </select>
-              </div>
-              <div className="form-group">
-                <label className="block text-primary font-pregular mb-2">
-                  Warranty Status
-                </label>
-                <select
-                  name="warrantyStatus"
-                  value={formData.warrantyStatus}
-                  onChange={handleChange}
-                  style={styles.select}
-                  required
-                >
-                  <option
-                    value=""
-                    disabled
-                    selected
-                    style={styles.placeholderOption}
-                  >
-                    Select Warranty Status
-                  </option>
-                  <option value="New" style={styles.hoverOption}>
-                    Yes
-                  </option>
-                  <option value="Good" style={styles.hoverOption}>
-                    No
                   </option>
                 </select>
               </div>
