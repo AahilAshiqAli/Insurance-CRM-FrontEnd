@@ -1,4 +1,5 @@
 import React from "react";
+import emailjs from "emailjs-com"; // Import the EmailJS library
 import Navbar from "../components/navbar";
 import PolicySidebar from "../components/policy-sidebar";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +10,33 @@ const TemporaryCNWithQuote = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     navigate("/policy-creation/issue-policy");
+  };
+
+  // Function to handle email sending
+  const sendEmail = () => {
+    const templateParams = {
+      to_email: "naqeeb.nadir091@gmail.com",
+      subject: "Temporary CN Issued",
+      message: "Hello!",
+    };
+
+    emailjs
+      .send(
+        "service_lahlthq", // Replace with your EmailJS service ID
+        "template_1n0hi4e", // Replace with your EmailJS template ID
+        templateParams,
+        "D6aEi7IvSwkRs1V2y" // Replace with your EmailJS user ID
+      )
+      .then(
+        (response) => {
+          alert("Email sent successfully!");
+          console.log("SUCCESS:", response);
+        },
+        (error) => {
+          alert("Failed to send email.");
+          console.error("FAILED:", error);
+        }
+      );
   };
 
   return (
@@ -33,15 +61,17 @@ const TemporaryCNWithQuote = () => {
           </div>
 
           <div className="flex items-center justify-start space-x-2 mb-4">
-            <button className="bg-green-500 text-white py-2 flex-1 mx-1 rounded whitespace-nowrap">
+            <button
+              className="bg-green-500 text-white py-2 flex-1 mx-1 rounded whitespace-nowrap"
+            >
               View
             </button>
-            <button className="bg-orange-500 text-white py-2 flex-1 mx-1 rounded whitespace-nowrap">
+            <button
+              className="bg-orange-500 text-white py-2 flex-1 mx-1 rounded whitespace-nowrap"
+              onClick={sendEmail} // Attach the sendEmail function
+            >
               Issue TCN
             </button>
-            {/* <button className="bg-blue-500 text-white py-2 flex-1 mx-1 rounded whitespace-nowrap">
-              Send To Mob/Email
-            </button> */}
           </div>
         </div>
         <div>
