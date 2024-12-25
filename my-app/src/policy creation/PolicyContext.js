@@ -28,7 +28,7 @@ const PolicyProvider = ({ children }) => {
     device_condition: "",
     warranty_status: "",
     product_id: "",
-    quote_amount: 3000,
+    quote_amount: 25000,
     inspector_name: "",
     inspector_location: "",
     inspector_phone: "",
@@ -82,7 +82,7 @@ const PolicyProvider = ({ children }) => {
       policy_number: policyData.policy_number,
     };
 
-    fetch(`http://localhost:3000/api/policy/${policyId}`, {
+    fetch(`http://localhost:3000/api/policies/${policyId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const PolicyProvider = ({ children }) => {
   // Fetch policy data when policyId changes
   useEffect(() => {
     if (!policyId) return;
-
+    console.log("hello");
     setLoading(true);
     setError(null);
 

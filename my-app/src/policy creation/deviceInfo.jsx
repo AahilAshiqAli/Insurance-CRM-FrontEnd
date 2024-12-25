@@ -43,14 +43,17 @@ const DeviceInfo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+    const formattedDate = formData.purchaseDate
+      ? new Date(formData.purchaseDate).toISOString().split("T")[0]
+      : null;
     // Update the context with the device data
+    console.log(formattedDate);
     setPolicyData({
       ...policyData,
       brand_name: formData.brandName,
       device_model: formData.deviceModel,
       device_serial_number: formData.deviceSerialNumber,
-      purchase_date: formData.purchaseDate,
+      purchase_date: formattedDate,
       device_value: formData.deviceValue,
       device_condition: formData.deviceCondition,
       warranty_status: formData.warrantyStatus,

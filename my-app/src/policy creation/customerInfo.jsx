@@ -21,27 +21,36 @@ const CustomerInfo = () => {
     officeAddress: "",
   });
 
-  const [errors, setErrors] = useState({});
+  const [verified, setVerified] = useState({
+    contactNumber: false,
+    email: false,
+    ntn: false,
+    cnicNumber: false,
+  });
+
   const { policyData, setPolicyData } = usePolicy(); // Get the function to update the policy data
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log(policyData);
+    // Ensure the data is available before attempting to set the state
     if (policyData) {
       setFormData({
         firstName: policyData.first_name || "",
         lastName: policyData.last_name || "",
         contactNumber: policyData.phone_number || "",
         email: policyData.email || "",
-        ntn: "",
+        ntn: "", // No field for `ntn` in the policyData, so leave it blank
         cnicNumber: policyData.cnic || "",
         pocName: policyData.poc_name || "",
         pocNumber: policyData.poc_number || "",
-        pocCnicNumber: policyData.poc_cnic || "",
-        relationshipWithCustomer: policyData.relationship_with_customer || "",
+        pocCnicNumber: policyData.poc_cnic || "", // No field for `pocCnicNumber` in the policyData, so leave it blank
+        relationshipWithCustomer: policyData.relationship_with_customer || "", // No field for `relationshipWithCustomer` in the policyData, so leave it blank
         currentAddress: policyData.address || "",
         officeAddress: policyData.office_address || "",
       });
     }
+    console.log(policyData ? policyData : "No policy data available");
   }, [policyData]);
 
   const handleChange = (e) => {
@@ -49,50 +58,14 @@ const CustomerInfo = () => {
       ...formData,
       [e.target.name]: e.target.value,
     });
-    setErrors({
-      ...errors,
-      [e.target.name]: "", // Clear error when user types
-    });
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-
-    if (!formData.firstName || !/^[a-zA-Z]+$/.test(formData.firstName)) {
-      newErrors.firstName = "First Name must only contain alphabets and cannot be empty.";
-    }
-
-    if (!formData.lastName || !/^[a-zA-Z]+$/.test(formData.lastName)) {
-      newErrors.lastName = "Last Name must only contain alphabets and cannot be empty.";
-    }
-
-    if (!formData.contactNumber || !/^\d+$/.test(formData.contactNumber)) {
-      newErrors.contactNumber = "Contact Number must only contain digits and cannot be empty.";
-    }
-
-    if (
-      !formData.email ||
-      !/^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(formData.email)
-    ) {
-      newErrors.email = "Email must be a valid format (e.g., example@domain.com).";
-    }
-
-    if (
-      !formData.cnicNumber ||
-      !/^\d{5}-\d{7}-\d$/.test(formData.cnicNumber)
-    ) {
-      newErrors.cnicNumber =
-        "CNIC Number must be in the format XXXXX-XXXXXXX-X and cannot be empty.";
-    }
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0; // Return true if no errors
+  const handleVerification = (field) => {
+    setVerified({ ...verified, [field]: true });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) return; // Prevent submission if validation fails
 
     setPolicyData({
       ...policyData,
@@ -109,12 +82,16 @@ const CustomerInfo = () => {
       office_address: formData.officeAddress,
     });
     navigate("/policy-creation/device-info");
+    // Update the context with the customer data
   };
 
   return (
     <div className="policy-process-layout">
       <Navbar />
+      {/* Sidebar */}
       <SideBar />
+
+      {/* Form Container */}
       <div className="policy-process-container mt-12">
         <form onSubmit={handleSubmit}>
           {/* Customer Information Section */}
@@ -133,9 +110,6 @@ const CustomerInfo = () => {
                   required
                   className="text-black-100"
                 />
-                {errors.firstName && (
-                  <span className="error-text">{errors.firstName}</span>
-                )}
               </div>
               <div className="form-group">
                 <label>Last Name</label>
@@ -147,59 +121,173 @@ const CustomerInfo = () => {
                   required
                   className="text-black-100"
                 />
-                {errors.lastName && (
-                  <span className="error-text">{errors.lastName}</span>
-                )}
               </div>
             </div>
             <div className="form-row font-pregular">
               <div className="form-group">
                 <label>Contact Number</label>
-                <input
-                  type="tel"
-                  name="contactNumber"
-                  value={formData.contactNumber}
-                  onChange={handleChange}
-                  required
-                  className="text-black-100"
-                />
-                {errors.contactNumber && (
-                  <span className="error-text">{errors.contactNumber}</span>
-                )}
+                <div className="input-with-icon">
+                  <input
+                    type="tel"
+                    name="contactNumber"
+                    value={formData.contactNumber}
+                    onChange={handleChange}
+                    required
+                    className="text-black-100"
+                  />
+                  {verified.contactNumber && (
+                    <span className="verified-icon">✔️</span>
+                  )}
+                  {!verified.contactNumber && (
+                    <button
+                      type="button"
+                      onClick={() => handleVerification("contactNumber")}
+                      className="verify-btn bg-primary hover:bg-secondary-200"
+                    >
+                      Verify
+                    </button>
+                  )}
+                </div>
               </div>
               <div className="form-group">
                 <label>Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="text-black-100"
-                />
-                {errors.email && (
-                  <span className="error-text">{errors.email}</span>
-                )}
+                <div className="input-with-icon">
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                    className="text-black-100"
+                  />
+                  {verified.email && <span className="verified-icon">✔️</span>}
+                  {!verified.email && (
+                    <button
+                      type="button"
+                      onClick={() => handleVerification("email")}
+                      className="verify-btn bg-primary hover:bg-secondary-200"
+                    >
+                      Verify
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
             <div className="form-row font-pregular">
               <div className="form-group">
                 <label>CNIC Number</label>
+                <div className="input-with-icon">
+                  <input
+                    type="text"
+                    name="cnicNumber"
+                    value={formData.cnicNumber}
+                    onChange={handleChange}
+                    required
+                    className="text-black-100"
+                  />
+                  {verified.cnicNumber && (
+                    <span className="verified-icon">✔️</span>
+                  )}
+                  {!verified.cnicNumber && (
+                    <button
+                      type="button"
+                      onClick={() => handleVerification("cnicNumber")}
+                      className="verify-btn bg-primary hover:bg-secondary-200"
+                    >
+                      Verify
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* POC Information Section */}
+          <section>
+            <h3 className="font-psemibold text-2xl text-primary my-12">
+              Point of Contact (POC)
+            </h3>
+            <div className="form-row">
+              <div className="form-group font-pregular">
+                <label>POC Name</label>
                 <input
                   type="text"
-                  name="cnicNumber"
-                  value={formData.cnicNumber}
+                  name="pocName"
+                  value={formData.pocName}
                   onChange={handleChange}
                   required
                   className="text-black-100"
                 />
-                {errors.cnicNumber && (
-                  <span className="error-text">{errors.cnicNumber}</span>
-                )}
+              </div>
+              <div className="form-group">
+                <label>POC Number</label>
+                <input
+                  type="tel"
+                  name="pocNumber"
+                  value={formData.pocNumber}
+                  onChange={handleChange}
+                  className="text-black-100"
+                  required
+                />
+              </div>
+            </div>
+            <div className="form-row font-pregular">
+              <div className="form-group">
+                <label>POC CNIC Number</label>
+                <input
+                  type="text"
+                  name="pocCnicNumber"
+                  value={formData.pocCnicNumber}
+                  onChange={handleChange}
+                  className="text-black-100"
+                  required
+                />
+              </div>
+              <div className="form-group">
+                <label>Relationship With Customer</label>
+                <input
+                  type="text"
+                  name="relationshipWithCustomer"
+                  value={formData.relationshipWithCustomer}
+                  onChange={handleChange}
+                  className="text-black-100"
+                  required
+                />
               </div>
             </div>
           </section>
-          {/* Other Sections Remain the Same */}
+
+          {/* Address Information Section */}
+          <section>
+            <h3 className="font-psemibold text-2xl text-primary my-12">
+              Address Information
+            </h3>
+            <div className="form-row">
+              <div className="form-group font-pregular">
+                <label>Current Address</label>
+                <input
+                  type="text"
+                  name="currentAddress"
+                  value={formData.currentAddress}
+                  onChange={handleChange}
+                  className="text-black-100"
+                  required
+                />
+              </div>
+              <div className="form-group font-pregular">
+                <label>Office Address</label>
+                <input
+                  type="text"
+                  name="officeAddress"
+                  value={formData.officeAddress}
+                  onChange={handleChange}
+                  className="text-black-100"
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Submit Button */}
           <div className="flex justify-end mt-8">
             <button
               type="submit"

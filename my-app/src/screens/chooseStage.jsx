@@ -13,7 +13,7 @@ const Dashboard = () => {
     { title: "Claims Module", icon: "📄", path: "/" },
     { title: "Endorsement", icon: "🔖", path: "/policy-creation/endorsement" },
 
-    { title: "Renewal", icon: "🔁", path: "/Renewal/" },
+    { title: "Renewal", icon: "🔁", path: "/policy-creation/Renewal/" },
   ];
 
   return (

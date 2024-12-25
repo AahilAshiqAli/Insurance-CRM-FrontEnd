@@ -7,8 +7,7 @@ import "./pre-inspection.css";
 
 const PreInspection = () => {
   const navigate = useNavigate();
-  const { policyData, setPolicyData, updatePolicyData, policyId, setPolicyId } =
-    usePolicy(); // Custom hook to manage policy data
+  const { policyData, setPolicyData, updatePolicyData } = usePolicy(); // Custom hook to manage policy data
 
   // State for form inputs
   const [formData, setFormData] = useState({
@@ -48,13 +47,11 @@ const PreInspection = () => {
       inspector_name: formData.inspector, // Merge form data into the policy context
     });
     setFlag(true);
-    if (!policyId) setPolicyId(100);
-    alert("hhh");
   };
 
   useEffect(() => {
     if (flag) {
-      alert("fff");
+      alert("data will be saved in backend");
       console.log("hello");
       updatePolicyData();
       setFlag(false);

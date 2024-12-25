@@ -4,18 +4,17 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const RenewalScreen = () => {
+  const navigate = useNavigate();
 
-    const navigate = useNavigate();
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        navigate("/");
-    }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/");
+  };
 
   // Dictionary of policy data
   const [policies, setPolicies] = useState([
-    { policyNumber: "CL1234", duration: 29, msgResponse: "No", call: "Call" },
-    { policyNumber: "CL5678", duration: 29, msgResponse: "No", call: "Call" },
+    { policyNumber: "CL1234", duration: 29 },
+    { policyNumber: "CL5678", duration: 27 },
   ]);
 
   const [selectedPolicy, setSelectedPolicy] = useState(null);
@@ -78,10 +77,18 @@ const RenewalScreen = () => {
           <table className="table-auto w-full border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-200">
-                <th className="border border-gray-300 px-4 py-2 text-left">Policy Number</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Duration</th>
-                <th className="border border-gray-300 px-4 py-2 text-left">Msg Response</th>
-                <th className="border border-gray-300 px-4 py-2 text-center">Call</th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  Policy Number
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  Duration
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-left">
+                  Msg Response
+                </th>
+                <th className="border border-gray-300 px-4 py-2 text-center">
+                  Call
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -91,9 +98,15 @@ const RenewalScreen = () => {
                   className="hover:bg-gray-100 cursor-pointer"
                   onClick={() => handleRowClick(policy)}
                 >
-                  <td className="border border-gray-300 px-4 py-2">{policy.policyNumber}</td>
-                  <td className="border border-gray-300 px-4 py-2">{policy.duration} days</td>
-                  <td className="border border-gray-300 px-4 py-2">{policy.msgResponse}</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {policy.policyNumber}
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {policy.duration} days
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    {policy.msgResponse}
+                  </td>
                   <td className="border border-gray-300 px-4 py-2 text-center">
                     <button className="text-green-500 text-lg hover:scale-110 transition">
                       📞
@@ -114,8 +127,12 @@ const RenewalScreen = () => {
             <div className="grid grid-cols-2 gap-4">
               {/* Policy Number */}
               <div className="flex flex-col">
-                <label className="font-medium text-gray-700">Policy Number</label>
-                <div className="bg-gray-200 p-2 rounded-md">{selectedPolicy.policyNumber}</div>
+                <label className="font-medium text-gray-700">
+                  Policy Number
+                </label>
+                <div className="bg-gray-200 p-2 rounded-md">
+                  {selectedPolicy.policyNumber}
+                </div>
               </div>
 
               {/* Date Input */}
@@ -162,14 +179,14 @@ const RenewalScreen = () => {
           </div>
         )}
         <div className="flex justify-end mt-16">
-            <button
-              type="submit"
-              className="py-4 px-10 bg-primary text-white font-psemibold rounded-md hover:bg-secondary transition duration-300"
-              onClick={handleSubmit}
-            >
-              Next
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="py-4 px-10 bg-primary text-white font-psemibold rounded-md hover:bg-secondary transition duration-300"
+            onClick={handleSubmit}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

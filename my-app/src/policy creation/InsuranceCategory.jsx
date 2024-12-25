@@ -6,7 +6,7 @@ import SideBar from "../components/policy-sidebar";
 import { usePolicy } from "./PolicyContext";
 
 const InsuranceCategory = () => {
-  const { policyData, setPolicyData } = usePolicy(); // Destructure policyData and updatePolicyData from context
+  const { policyData, setPolicyData, policyId, setPolicyId } = usePolicy(); // Destructure policyData and updatePolicyData from context
   const [selectedLicenseType, setSelectedLicenseType] = useState("");
   const [selectedDeviceType, setSelectedDeviceType] = useState("");
   const navigate = useNavigate();
@@ -37,10 +37,44 @@ const InsuranceCategory = () => {
       license_type: selectedLicenseType,
       device_type: selectedDeviceType,
     });
+    const token = localStorage.getItem("jwt_token");
+    if (!policyId) {
+      console.log("hjvhjvjh");
+      const updatedData = {
+        license_type: selectedLicenseType,
+        device_type: selectedDeviceType,
+      };
 
-    // Navigate to the next screen
+      fetch(`http://localhost:3000/api/policies/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(updatedData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to update policy data");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          const { policy_id } = data;
+          setPolicyId(policy_id);
+          console.log(policy_id);
+          console.log("Policy inserted successfully:", data);
+        })
+        .catch((err) => {
+          console.error(
+            "Error inserting policy:",
+            err.message || "Failed to inserting policy data"
+          );
+        });
+    }
     navigate("customer-info");
   };
+  // Navigate to the next screen
 
   return (
     <div className="layout">

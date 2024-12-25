@@ -19,11 +19,6 @@ const EndorsementScreen = () => {
     navigate("/policy-creation"); // Navigate to the home page
   };
 
-  const handlebutton = (e) => {
-    e.preventDefault();
-    navigate("/policy-creation"); // Navigate to the policy creation page
-  };
-
   const handleInputChange = (e) => {
     setProductIdLocal(e.target.value); // Update local product ID state
   };
@@ -54,7 +49,7 @@ const EndorsementScreen = () => {
             <div className="flex justify-center">
               <button
                 className="bg-green-500 text-white py-2 px-6 rounded-md hover:bg-green-600 transition"
-                onClick={handlebutton}
+                onClick={handleSubmit}
               >
                 Submit
               </button>
