@@ -135,7 +135,7 @@ const CustomerInfo = () => {
                     required
                     className="text-black-100"
                   />
-                  {verified.contactNumber && (
+                  {/* {verified.contactNumber && (
                     <span className="verified-icon">✔️</span>
                   )}
                   {!verified.contactNumber && (
@@ -146,7 +146,7 @@ const CustomerInfo = () => {
                     >
                       Verify
                     </button>
-                  )}
+                  )} */}
                 </div>
               </div>
               <div className="form-group">
@@ -160,7 +160,7 @@ const CustomerInfo = () => {
                     required
                     className="text-black-100"
                   />
-                  {verified.email && <span className="verified-icon">✔️</span>}
+                  {/* {verified.email && <span className="verified-icon">✔️</span>}
                   {!verified.email && (
                     <button
                       type="button"
@@ -169,7 +169,7 @@ const CustomerInfo = () => {
                     >
                       Verify
                     </button>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>
@@ -185,7 +185,7 @@ const CustomerInfo = () => {
                     required
                     className="text-black-100"
                   />
-                  {verified.cnicNumber && (
+                  {/* {verified.cnicNumber && (
                     <span className="verified-icon">✔️</span>
                   )}
                   {!verified.cnicNumber && (
@@ -196,7 +196,7 @@ const CustomerInfo = () => {
                     >
                       Verify
                     </button>
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>

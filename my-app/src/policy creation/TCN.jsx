@@ -10,7 +10,7 @@ const TemporaryCNWithQuote = () => {
   const [error, setError] = useState(null);
   const [perilsData, setPerilsData] = useState([]);
 
-  const { policyData } = usePolicy();
+  const { policyData, endorsement } = usePolicy();
   const navigate = useNavigate();
 
   const startDate = new Date().toISOString().split("T")[0]; // Get today's date
@@ -19,6 +19,9 @@ const TemporaryCNWithQuote = () => {
   const endDateValue = endDate.toISOString().split("T")[0]; // Get date after 7 days
 
   useEffect(() => {
+    if (endorsement) {
+      navigate("/policy-creation/issue-policy");
+    }
     // Clear previous errors and set loading to true when the component mounts
     setLoading(true);
     setError(null);

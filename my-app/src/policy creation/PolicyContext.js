@@ -20,6 +20,8 @@ const PolicyProvider = ({ children }) => {
     poc_number: "",
     poc_cnic: "",
     relationship_with_customer: "",
+    address: "",
+    office_address: "",
     brand_name: "",
     device_model: "",
     device_serial_number: "",
@@ -34,12 +36,16 @@ const PolicyProvider = ({ children }) => {
     inspector_phone: "",
     remarks_ceo: "",
     remarks_coo: "",
-    policy_number: 1,
+    policy_number:
+      "POL" + Math.floor(100000 + Math.random() * 900000).toString(),
+    created_at: new Date().toISOString().split("T")[0],
   });
 
   // State for loading and error handling
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [renewal, setRenewal] = useState(false);
+  const [endorsement, setEndorsement] = useState(false);
 
   // State for storing policy ID
   const [policyId, setPolicyId] = useState(null);
@@ -50,7 +56,7 @@ const PolicyProvider = ({ children }) => {
 
     setLoading(true);
     setError(null);
-
+    console.log(renewal);
     const token = localStorage.getItem("jwt_token");
     console.log(policyData);
     // Prepare the updated data
@@ -66,6 +72,8 @@ const PolicyProvider = ({ children }) => {
       poc_number: policyData.poc_number,
       poc_cnic: policyData.poc_cnic,
       relationship_with_customer: policyData.relationship_with_customer,
+      address: policyData.address,
+      office_address: policyData.office_address,
       brand_name: policyData.brand_name,
       device_model: policyData.device_model,
       device_serial_number: policyData.device_serial_number,
@@ -74,12 +82,16 @@ const PolicyProvider = ({ children }) => {
       device_condition: policyData.device_condition,
       warranty_status: policyData.warranty_status,
       product_id: policyData.product_id,
+      quote_amount: 25000,
       inspector_location: policyData.inspector_location,
       inspector_name: policyData.inspector_name,
       inspector_phone: policyData.inspector_phone,
       remarks_ceo: policyData.remarks_ceo,
       remarks_coo: policyData.remarks_coo,
-      policy_number: policyData.policy_number,
+      policy_number: renewal
+        ? "POL" + Math.floor(100000 + Math.random() * 900000).toString()
+        : policyData.policy_number,
+      created_at: renewal ? "Yes" : null,
     };
 
     fetch(`http://localhost:3000/api/policies/${policyId}`, {
@@ -98,6 +110,7 @@ const PolicyProvider = ({ children }) => {
       })
       .then((data) => {
         console.log("Policy updated successfully:", data);
+        setRenewal(false);
       })
       .catch((err) => {
         setError(err.message || "Failed to update policy data");
@@ -149,9 +162,13 @@ const PolicyProvider = ({ children }) => {
         loading,
         error,
         policyId,
+        renewal,
+        endorsement,
         setPolicyId,
         setPolicyData,
         updatePolicyData,
+        setRenewal,
+        setEndorsement,
       }}
     >
       {children}

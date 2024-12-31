@@ -1,69 +1,112 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Navbar from "../components/navbar";
 import PolicySidebar from "../components/policy-sidebar";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { usePolicy } from "../policy creation/PolicyContext";
 
 const RenewalScreen = () => {
   const navigate = useNavigate();
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    navigate("/");
-  };
-
-  // Dictionary of policy data
-  const [policies, setPolicies] = useState([
-    { policyNumber: "CL1234", duration: 29 },
-    { policyNumber: "CL5678", duration: 27 },
-  ]);
-
+  const { setPolicyId, setRenewal } = usePolicy();
+  const [policies, setPolicies] = useState([]);
   const [selectedPolicy, setSelectedPolicy] = useState(null);
   const [showRemarks, setShowRemarks] = useState(false);
   const [remarks, setRemarks] = useState("");
-  const [selectedDate, setSelectedDate] = useState("");
+  const [error, setError] = useState(null);
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ";
+    fetch(`http://localhost:3000/api/policies/${selectedPolicy.policyId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to delete policy");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Show success alert
+        alert("Policy deleted successfully!");
+      })
+      .catch((err) => {
+        // Show error alert
+        alert(err.message || "Failed to delete policy.");
+      });
+
+    navigate("/choose");
+  };
 
   // Handle row click
   const handleRowClick = (policy) => {
     setSelectedPolicy(policy);
-    setShowRemarks(false); // Reset remarks visibility when selecting a new policy
-    setSelectedDate("");
+    setShowRemarks(false);
+    setRemarks("");
   };
 
-  // Handle date input and update duration
-  const handleDateChange = (e) => {
-    const selectedDate = new Date(e.target.value);
-    const today = new Date();
-    const daysDifference = Math.ceil(
-      (selectedDate - today) / (1000 * 60 * 60 * 24)
-    );
-
-    if (daysDifference > 0 && selectedPolicy) {
-      // Update the policy duration
-      const updatedPolicies = policies.map((policy) =>
-        policy.policyNumber === selectedPolicy.policyNumber
-          ? { ...policy, duration: policy.duration + daysDifference }
-          : policy
-      );
-
-      // Sort policies by duration in ascending order
-      updatedPolicies.sort((a, b) => a.duration - b.duration);
-
-      setPolicies(updatedPolicies);
-      setSelectedDate(e.target.value); // Update the selected date
-    }
-  };
-
-  // Handle Continue click
+  // Handle Continue button click
   const handleContinue = (e) => {
     e.preventDefault();
-    setShowRemarks(false); // Close the remarks box
-    navigate("/policy-creation"); // Navigate to the next page
+    setShowRemarks(false);
+    console.log(selectedPolicy);
+    setPolicyId(selectedPolicy.policyId);
+    setRenewal(true);
+    navigate("/policy-creation");
   };
 
-  // Handle Discontinue click
+  // Handle Discontinue button click
   const handleDiscontinue = () => {
-    setShowRemarks(true); // Show remarks box
+    setShowRemarks(true);
   };
+
+  // Fetch policies on component mount
+  useEffect(() => {
+    const token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ";
+    const currentDate = new Date();
+
+    fetch("http://localhost:3000/api/policies", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch policy data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const filteredPolicies = data
+          .map((policy) => {
+            const createdDate = new Date(policy.created_at);
+            const endDate = new Date(createdDate);
+            endDate.setDate(createdDate.getDate() + 365);
+            const remainingDays = Math.ceil(
+              (endDate - currentDate) / (1000 * 60 * 60 * 24)
+            );
+
+            return {
+              policyId: policy.policy_id,
+              policyNumber: policy.policy_number,
+              duration: remainingDays,
+            };
+          })
+          .filter((policy) => policy.duration < 40 && policy.duration > 0)
+          .sort((a, b) => a.duration - b.duration);
+
+        setPolicies(filteredPolicies);
+      })
+      .catch((err) => {
+        setError(err.message || "Failed to load policies data");
+      });
+  }, []);
 
   return (
     <div className="body">
@@ -73,7 +116,9 @@ const RenewalScreen = () => {
         <h2 className="font-psemibold text-primary text-3xl text-left m-5">
           Renewal
         </h2>
+
         <div className="bg-white rounded-lg shadow-md p-6">
+          {error && <div className="text-red-500 mb-4">{error}</div>}
           <table className="table-auto w-full border-collapse border border-gray-300">
             <thead>
               <tr className="bg-gray-200">
@@ -82,12 +127,6 @@ const RenewalScreen = () => {
                 </th>
                 <th className="border border-gray-300 px-4 py-2 text-left">
                   Duration
-                </th>
-                <th className="border border-gray-300 px-4 py-2 text-left">
-                  Msg Response
-                </th>
-                <th className="border border-gray-300 px-4 py-2 text-center">
-                  Call
                 </th>
               </tr>
             </thead>
@@ -104,29 +143,19 @@ const RenewalScreen = () => {
                   <td className="border border-gray-300 px-4 py-2">
                     {policy.duration} days
                   </td>
-                  <td className="border border-gray-300 px-4 py-2">
-                    {policy.msgResponse}
-                  </td>
-                  <td className="border border-gray-300 px-4 py-2 text-center">
-                    <button className="text-green-500 text-lg hover:scale-110 transition">
-                      📞
-                    </button>
-                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-        {/* Policy Details Section */}
         {selectedPolicy && (
           <div className="mt-6 p-6 bg-gray-100 rounded-lg shadow-lg">
             <h3 className="text-xl font-semibold text-gray-700 mb-4">
               Policy Details
             </h3>
-            <div className="grid grid-cols-2 gap-4">
-              {/* Policy Number */}
-              <div className="flex flex-col">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex flex-col flex-grow">
                 <label className="font-medium text-gray-700">
                   Policy Number
                 </label>
@@ -135,35 +164,22 @@ const RenewalScreen = () => {
                 </div>
               </div>
 
-              {/* Date Input */}
-              <div className="flex flex-col">
-                <label className="font-medium text-gray-700">Input Date</label>
-                <input
-                  type="date"
-                  value={selectedDate}
-                  onChange={handleDateChange}
-                  className="border border-gray-300 rounded-md p-2 text-gray-800 focus:ring focus:ring-blue-300"
-                />
+              <div className="flex gap-4">
+                <button
+                  className="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition"
+                  onClick={handleContinue}
+                >
+                  Continue
+                </button>
+                <button
+                  className="bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition"
+                  onClick={handleDiscontinue}
+                >
+                  Discontinue
+                </button>
               </div>
-
-              {/* Continue Button */}
-              <button
-                className="col-span-1 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition"
-                onClick={handleContinue}
-              >
-                Continue
-              </button>
-
-              {/* Discontinue Button */}
-              <button
-                className="col-span-1 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600 transition"
-                onClick={handleDiscontinue}
-              >
-                Discontinue
-              </button>
             </div>
 
-            {/* Remarks Section */}
             {showRemarks && (
               <div className="mt-4">
                 <label className="font-medium text-gray-700">Remarks</label>
@@ -178,6 +194,7 @@ const RenewalScreen = () => {
             )}
           </div>
         )}
+
         <div className="flex justify-end mt-16">
           <button
             type="submit"

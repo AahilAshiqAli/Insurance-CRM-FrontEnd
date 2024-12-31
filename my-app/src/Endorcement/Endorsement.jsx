@@ -1,7 +1,7 @@
 import Navbar from "../components/navbar";
 import PolicySidebar from "../components/policy-sidebar";
 import { useNavigate } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { usePolicy } from "../policy creation/PolicyContext"; // Assuming this is where usePolicy is defined
 
 const EndorsementScreen = () => {
@@ -11,11 +11,12 @@ const EndorsementScreen = () => {
   const [productId, setProductIdLocal] = useState("");
 
   // Access the context to get setProductId
-  const { setPolicyId } = usePolicy();
+  const { setPolicyId, setEndorsement } = usePolicy();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setPolicyId(productId); // Update the product ID in context when form is submitted
+    setEndorsement(true);
     navigate("/policy-creation"); // Navigate to the home page
   };
 

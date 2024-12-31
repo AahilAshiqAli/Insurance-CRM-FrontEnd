@@ -12,12 +12,16 @@ const IssuePolicy = () => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
-  const { policyData } = usePolicy();
+  const { policyData, endorsement, setEndorsement } = usePolicy();
 
-  const startDate = new Date().toISOString().split("T")[0]; // Get today's date
-  const endDate = new Date();
-  endDate.setDate(endDate.getDate() + 365); // Add 7 days to today's date
-  const endDateValue = endDate.toISOString().split("T")[0]; // Get date after 7 days
+  const startDate = endorsement
+    ? policyData.created_at.split("T")[0] // Directly split ISO string to get the date part
+    : new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+
+  const endDate = endorsement ? new Date(policyData.created_at) : new Date();
+  endDate.setDate(endDate.getDate() + 365); // Add 365 days to start date
+  const endDateValue = endDate.toISOString().split("T")[0]; // Get the date part after adding 365 days
+  // this conversion to string is neccessary because input=date in html doesnot take date object in value but takes string converted by toISOString()
 
   useEffect(() => {
     // Clear previous errors and set loading to true when the component mounts
@@ -59,7 +63,12 @@ const IssuePolicy = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Policy Creation is Completed");
+    if (endorsement) {
+      setEndorsement(false);
+      alert("Policy Endorsement is Completed");
+    } else {
+      alert("Policy Creation is Completed");
+    }
     navigate("/choose");
   };
 
@@ -67,7 +76,7 @@ const IssuePolicy = () => {
   const sendEmail = () => {
     const templateParams = {
       to_email: "aahilashiqali@gmail.com",
-      subject: "Temporary CN Issued",
+      subject: "Policy Issued",
       message: generateFormattedText(policyData),
     };
 
