@@ -31,9 +31,10 @@ import EndorsementScreen from "./Endorcement/Endorsement.jsx";
 import Payment from "./Payment/payment.jsx";
 import AdminDashboard from "./components/AdminDashboard.jsx";
 import PolicyProvider from "./policy creation/PolicyContext";
+import ClaimIntimation from "./claims/ClaimIntimation.jsx";
 
 // Product Setup Wrapper
-const ProductSetupWrapper = () => {
+function ProductSetupWrapper() {
   return (
     <ProductSetupProvider>
       <Routes>
@@ -50,7 +51,7 @@ const ProductSetupWrapper = () => {
       </Routes>
     </ProductSetupProvider>
   );
-};
+}
 
 // Policy Creation Wrapper
 const PolicyCreationWrapper = () => {
@@ -86,6 +87,7 @@ function App() {
         <Route path="/dashboard" element={<AdminDashboard />} />
         <Route path="/policy-creation/*" element={<PolicyCreationWrapper />} />
         <Route path="/product-setup/*" element={<ProductSetupWrapper />} />
+        <Route path="/claims/claim-intimation" element={<ClaimIntimation />} />
       </Routes>
     </Router>
   );

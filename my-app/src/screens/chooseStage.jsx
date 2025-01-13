@@ -10,7 +10,7 @@ const Dashboard = () => {
       icon: "🛡️",
       path: "/policy-creation/",
     },
-    { title: "Claims Module", icon: "📄", path: "/" },
+    { title: "Claims Module", icon: "📄", path: "/claims/claim-intimation" },
     { title: "Endorsement", icon: "🔖", path: "/policy-creation/endorsement" },
 
     { title: "Renewal", icon: "🔁", path: "/policy-creation/Renewal/" },
