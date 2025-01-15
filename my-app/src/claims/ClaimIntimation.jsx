@@ -5,18 +5,14 @@ const ClaimIntimationScreen = () => {
   // States for search and policy details
   const [policyIdentifier, setPolicyIdentifier] = useState("");
   const [policyDetails, setPolicyDetails] = useState(null);
-  const [claimHistory, setClaimHistory] = useState({
-    date: "2024-10-10",
-    type: "Screen Damage",
-    amount: "$100",
-    status: "Approved",
-  });
+  const [claimHistory, setClaimHistory] = useState([]);
+
   const [claimForm, setClaimForm] = useState({
     incidentDate: "",
     incidentDescription: "",
     incidentLocation: "",
-    deviceCurrentLocation: "",
     repairCost: "",
+    claimType: "",
   });
   const [loading, setLoading] = useState(false);
   const [uploadedPhotos, setUploadedPhotos] = useState([]);
@@ -80,12 +76,101 @@ const ClaimIntimationScreen = () => {
       .finally(() => {
         setLoading(false);
       });
-    setLoading(false);
+
+    fetch(`http://localhost:3000/api/claims/${policyIdentifier}`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to fetch claims data");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const claimsData = data.map((claim) => {
+          const incidentDate = new Date(claim.incidentDate);
+          return {
+            id: claim.claim_id,
+            date: incidentDate.toISOString().split("T")[0],
+            type: claim.claimType,
+            amount: claim.repairCost,
+            status: claim.status,
+          };
+        });
+
+        setClaimHistory(claimsData);
+        console.log(claimsData);
+      })
+      .catch((err) => {
+        alert(err.message || "Policy Number doesnot exist");
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   const handleSubmitClaim = () => {
-    setLoading(true);
+    const areAllFieldsFilled = Object.values(claimForm).every(
+      (value) => value.trim() !== ""
+    );
+    if (areAllFieldsFilled) {
+      setLoading(true);
+      const token = localStorage.getItem("jwt_token");
+      const claimsData = {
+        policy_id: policyIdentifier,
+        ...claimForm,
+      };
+      fetch(`http://localhost:3000/api/claims/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(claimsData),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to post claims data");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          alert("Claim inserted successfully");
+        })
+        .catch((err) => {
+          alert(err.message || "Failed to insert claims data");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    } else {
+      alert("Some fields are missing.");
+    }
+
     // Submit claim logic here
+  };
+
+  const styles = {
+    select: {
+      width: "100%",
+      border: "1px solid #d1d5db", // gray-300
+      padding: "8px", // equivalent to p-2
+      borderRadius: "0.375rem", // equivalent to rounded-md
+      outline: "none",
+      fontSize: "0.875rem", // small text size
+      backgroundColor: "#ffffff", // white
+      color: "#4a4a4a", // dark gray text
+      appearance: "none", // to style the dropdown arrow, if needed
+    },
+    placeholderOption: {
+      color: "#9e9e9e", // light gray text for placeholder
+    },
+    hoverOption: {
+      backgroundColor: "#f0f0f0", // light gray on hover
+    },
   };
 
   return (
@@ -156,7 +241,8 @@ const ClaimIntimationScreen = () => {
               <table className="min-w-full bg-white border border-gray-300">
                 <thead>
                   <tr className="bg-gray-100 font-psemibold">
-                    <th className="py-2 px-4 border-b">Date</th>
+                    <th className="py-2 px-4 border-b">Claim ID</th>
+                    <th className="py-2 px-4 border-b">Incident Date</th>
                     <th className="py-2 px-4 border-b">Claim Type</th>
                     <th className="py-2 px-4 border-b">Amount</th>
                     <th className="py-2 px-4 border-b">Status</th>
@@ -166,6 +252,7 @@ const ClaimIntimationScreen = () => {
                   {claimHistory.length > 0 ? (
                     claimHistory.map((claim, index) => (
                       <tr key={index} className="text-center font-pregular">
+                        <td className="py-2 px-4 border-b">{claim.id}</td>
                         <td className="py-2 px-4 border-b">{claim.date}</td>
                         <td className="py-2 px-4 border-b">{claim.type}</td>
                         <td className="py-2 px-4 border-b">{claim.amount}</td>
@@ -197,7 +284,7 @@ const ClaimIntimationScreen = () => {
                     </label>
                     <input
                       type="date"
-                      className="w-full border rounded p-2"
+                      className="w-72 border rounded p-2"
                       value={claimForm.incidentDate}
                       onChange={(e) =>
                         setClaimForm({
@@ -225,7 +312,58 @@ const ClaimIntimationScreen = () => {
                     />
                   </div>
                 </div>
-                <div className="mt-4">
+                <div className="mt-6 grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block font-pregular mb-2">
+                      Repair Cost:
+                    </label>
+                    <input
+                      type="number"
+                      className="w-64 border rounded p-2"
+                      placeholder="Enter repair cost"
+                      value={claimForm.repairCost}
+                      onChange={(e) =>
+                        setClaimForm({
+                          ...claimForm,
+                          repairCost: e.target.value,
+                        })
+                      }
+                    />
+                  </div>
+                  <div>
+                    <label className="block font-pregular mb-2">
+                      Claim Type
+                    </label>
+                    <select
+                      name="claimType"
+                      value={claimForm.claimType}
+                      onChange={(e) =>
+                        setClaimForm({
+                          ...claimForm,
+                          claimType: e.target.value,
+                        })
+                      }
+                      className="w-64 border rounded p-2"
+                      required
+                    >
+                      <option
+                        value=""
+                        disabled
+                        selected
+                        style={styles.placeholderOption}
+                      >
+                        Select Condition
+                      </option>
+                      <option value="Damage" style={styles.hoverOption}>
+                        Theft
+                      </option>
+                      <option value="Theft" style={styles.hoverOption}>
+                        Damage
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div className="mt-6">
                   <label className="block font-pregular mb-2">
                     Description:
                   </label>
@@ -242,20 +380,7 @@ const ClaimIntimationScreen = () => {
                     }
                   ></textarea>
                 </div>
-                <div className="mt-4">
-                  <label className="block font-pregular mb-2">
-                    Repair Cost:
-                  </label>
-                  <input
-                    type="number"
-                    className="w-full border rounded p-2"
-                    placeholder="Enter repair cost"
-                    value={claimForm.repairCost}
-                    onChange={(e) =>
-                      setClaimForm({ ...claimForm, repairCost: e.target.value })
-                    }
-                  />
-                </div>
+
                 <div className="mt-4">
                   <label className="block font-pregular mb-2">
                     Upload Device Photos:
