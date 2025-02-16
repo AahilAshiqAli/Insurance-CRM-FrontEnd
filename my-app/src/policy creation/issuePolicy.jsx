@@ -32,12 +32,15 @@ const IssuePolicy = () => {
     const token = localStorage.getItem("jwt_token");
 
     // Fetch peril data from the backend API
-    fetch("http://localhost:3000/api/perils", {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`, // Attach the token for authentication
-      },
-    })
+    fetch(
+      "https://insurance-crm-backend-git-main-aahilashiqalis-projects.vercel.app/api/perils",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`, // Attach the token for authentication
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch peril data");

@@ -21,13 +21,16 @@ const LoginScreen = () => {
       password: password,
     };
 
-    fetch("http://localhost:3000/api/auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(requestBody),
-    })
+    fetch(
+      "https://insurance-crm-backend-git-main-aahilashiqalis-projects.vercel.app/api/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(requestBody),
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Login failed! Please check your credentials.");

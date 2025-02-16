@@ -16,8 +16,7 @@ const RenewalScreen = () => {
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ";
+    const token = localStorage.getItem("jwt_token");
     fetch(`http://localhost:3000/api/policies/${selectedPolicy.policyId}`, {
       method: "DELETE",
       headers: {
@@ -66,8 +65,7 @@ const RenewalScreen = () => {
 
   // Fetch policies on component mount
   useEffect(() => {
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ";
+    const token = localStorage.getItem("jwt_token");
     const currentDate = new Date();
 
     fetch("http://localhost:3000/api/policies", {

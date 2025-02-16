@@ -96,15 +96,17 @@ const ProductSetupProvider = ({ children }) => {
     setLoading(true);
     setError(null);
 
-    const token =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzQxODM5MCwiZXhwIjoxNzM3MDE4MzkwfQ.HlLwvXxKTTZle6sk9fbzxsxzG-yqFT_R2jkGD5NsPJQ";
+    const token = localStorage.getItem("jwt_token");
 
-    fetch(`http://localhost:3000/api/product/${productId}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(
+      `https://insurance-crm-backend-git-main-aahilashiqalis-projects.vercel.app/api/product/${productId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch product data");

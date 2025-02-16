@@ -26,12 +26,14 @@ export const Perils = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const token =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzg5ODQ2NiwiZXhwIjoxNzM3NDk4NDY2fQ.4W_qeUbok_4qNGIsi0WY7NbBA4M8YNManoHJk2GY6Wo";
+        const token = localStorage.getItem("jwt_token");
 
-        const response = await axios.get("http://localhost:3000/api/product", {
-          headers: { Authorization: `Bearer ${token}` }, // Include token
-        });
+        const response = await axios.get(
+          "https://insurance-crm-backend-git-main-aahilashiqalis-projects.vercel.app/api/product",
+          {
+            headers: { Authorization: `Bearer ${token}` }, // Include token
+          }
+        );
 
         setProducts(response.data);
 

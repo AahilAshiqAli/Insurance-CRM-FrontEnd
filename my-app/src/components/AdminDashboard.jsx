@@ -10,12 +10,15 @@ const Dashboard = () => {
     setLoading(true);
     const token =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImlhdCI6MTczMzI0MzYwOSwiZXhwIjoxNzM2ODQzNjA5fQ.P_jHI1g8jST9T5sHppb36gh0ZBV14M9lzbxx9ZkU88A";
-    fetch(`http://localhost:3000/api/dashboard/`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(
+      `https://insurance-crm-backend-git-main-aahilashiqalis-projects.vercel.app/api/dashboard/`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch dashboard data");

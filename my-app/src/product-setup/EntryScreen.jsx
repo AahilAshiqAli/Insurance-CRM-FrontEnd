@@ -20,12 +20,15 @@ const EntryScreen = () => {
   const handleDelete = (productId) => {
     const token = localStorage.getItem("jwt_token");
     setLoading(true);
-    fetch(`http://localhost:3000/api/product/${productId}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(
+      `https://insurance-crm-backend-git-main-aahilashiqalis-projects.vercel.app/api/product/${productId}`,
+      {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((response) => {
         // Attempt to parse the response body
         return response.json().then((data) => {

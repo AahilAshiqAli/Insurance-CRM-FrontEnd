@@ -46,14 +46,17 @@ export const ApprovalMatrix = () => {
 
     if (remarks.CEO && remarks.COO) {
       const token = localStorage.getItem("jwt_token");
-      fetch(`http://localhost:3000/api/policies/remarks/${policyId}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(updatedData),
-      })
+      fetch(
+        `https://insurance-crm-backend-git-main-aahilashiqalis-projects.vercel.app/api/policies/remarks/${policyId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(updatedData),
+        }
+      )
         .then((response) => {
           if (!response.ok) {
             throw new Error("Failed to update policy data");

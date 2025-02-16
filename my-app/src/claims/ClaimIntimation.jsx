@@ -23,12 +23,15 @@ const ClaimIntimationScreen = () => {
     if (!policyIdentifier.trim()) return alert("Enter a policy number.");
     setLoading(true);
     const token = localStorage.getItem("jwt_token");
-    fetch(`http://localhost:3000/api/policies/${policyIdentifier}`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
+    fetch(
+      `https://insurance-crm-backend-git-main-aahilashiqalis-projects.vercel.app/api/policies/${policyIdentifier}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to fetch policy data");
