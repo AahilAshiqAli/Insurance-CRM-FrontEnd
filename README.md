@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+<h1>Abstract</h1>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+The device insurance market is underdeveloped compared to sectors like health, automotive, and property. Our project bridges this gap by offering a user-friendly web app to insure essential devices such as mobile phones and laptops. Traditional challenges in managing insurance deals, like adding new products to a database through coding, are simplified by our advanced Insurance CRM, which automates product setup and policy processes, reducing complexity and errors. Users can create profiles, input device details, and choose from various insurance plans that cover risks ranging from theft and snatching to cracked screens, malfunctions, or even explosions. The platform streamlines the process by enabling users to upload documents and secure comprehensive coverage through a few simple steps. Our Insurance CRM introduces automation, modularity, and connectivity between underwriters and reinsurers, offering a dynamic form-based interface for product addition and real-time tracking to ensure a smooth user experience. The CRM also allows customization of perils and provides an efficient premium calculation method for accurate estimates across diverse devices and damage scenarios. A key differentiator of our solution is an AI-powered chatbot that serves as a virtual assistant, guiding users through every step with real-time support, answering queries, and clarifying options, ensuring an intuitive and hassle-free experience akin to interacting with a sales agent. This innovation focuses on creating a simple and transparent insurance journey, eliminating complex forms and confusing terms. Our approach makes device insurance accessible to all, from students insuring laptops to professionals safeguarding work phones. By
+integrating user-centric technology and AI-driven assistance, our solution aims to revolutionize device insurance, making it as easy as online shopping. Users can quickly insure their devices, gaining peace of mind knowing they are protected against unforeseen damages.
 
-In the project directory, you can run:
+<h1>How to run the code</h1>
 
-### `npm start`
+1. **Clone the repository**
+ ```bash
+ git clone https://github.com/yourusername/Insurance-CRM-FrontEnd.git
+ ```
+   
+2. **Navigate to the project folder**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  ```bash
+  cd Insurance-CRM-FrontEnd
+  ```
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+3. **Install dependencies**
 
-### `npm test`
+  ```bash
+  npm install
+  ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Start the development server
 
-### `npm run build`
+  ```bash
+  npm start
+  ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+If running the server cuases problems, feel free to ping me.
+You can find the backend of this code in Insurance-CRM-backend
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
